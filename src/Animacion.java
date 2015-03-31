@@ -1,6 +1,8 @@
-
+/**
+ * Comentario para la intruduciion
+ */
 import java.awt.Image;
-
+//HOLA LALO
 import java.util.ArrayList;
 
 /**
