@@ -10,7 +10,7 @@ import java.util.ArrayList;
 */
 
 public class Animacion{
-	
+		//SKJNDHJKDFHJKDKJHD	//SKJNDHJKDFHJKDKJHD	//SKJNDHJKDFHJKDKJHD	//SKJNDHJKDFHJKDKJHD	//SKJNDHJKDFHJKDKJHD	//SKJNDHJKDFHJKDKJHD
 	private ArrayList cuadros;
 	private int indiceCuadroActual;
 	private long tiempoDeAnimacion;
