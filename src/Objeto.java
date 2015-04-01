@@ -1,12 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
+ * Objeto
  *
- * @author luis
+ * Modela la definición de todos los objetos de tipo
+ * <code>Objeto</code>
+ *
+ * @author Abelardo Roman Gzz, Eduardo Serna, Luis Carlos Flores
+ * @version 1.0 
+ * @date 31/marzo/2015
  */
 import java.awt.Graphics;
 import java.awt.Image;
@@ -15,7 +15,7 @@ import java.awt.image.ImageObserver;
 import javax.swing.ImageIcon;
 
 /**
-     * Base
+     * Objeto
      * 
      * Metodo constructor usado para crear el objeto animal
      * creando el icono a partir de una imagen
@@ -29,10 +29,11 @@ import javax.swing.ImageIcon;
      */
 public class Objeto {
     //imagen(animacion)
-    //nombre del objeto
-    //colisiones
+    //nombre del objeto///////
+    //colisiones/////
     //posiciones xy
     
+    private String sTipo;   //string del tipo de objeto
     private int iPosX;  //posicion X del objeto
     private int iPosY;  //posicion Y del objeto
     private int iAncho; //ancho del objeto
@@ -40,7 +41,8 @@ public class Objeto {
     private Animacion AniObjeto; //animacion del objeto
     
     
-    public Objeto(int iPosX, int iPosY , int iAncho, int iAlto) {
+    public Objeto(String sTipo, int iPosX, int iPosY , int iAncho, int iAlto) {
+        this.sTipo = sTipo;
         this.iPosX = iPosX;
         this.iPosY = iPosY;
         this.iAncho = iAncho;
@@ -120,6 +122,30 @@ public class Objeto {
     }
     
     /**
+     * setTipo
+     * 
+     * Metodo modificador usado para cambiar el tipo del objeto
+     * 
+     * @param sTipo es el <code>tipo</code> del objeto.
+     * 
+     */
+    public void setTipo(String sTipo) {
+        this.sTipo = sTipo;
+    }
+    
+    /**
+     * getTipo
+     * 
+     * Metodo de acceso que regresa el tipo del objeto 
+     * 
+     * @return sTipo es el <code>tipo</code> del objeto.
+     * 
+     */
+    public String getTipo() {
+            return sTipo;
+    }
+    
+    /**
      * equals
      * 
      * Metodo para checar igualdad con otro objeto
@@ -135,7 +161,8 @@ public class Objeto {
             // se regresa la comparación entre este objeto que invoca y el
             // objeto recibido como parametro
             Objeto ObjParam = (Objeto) objObjeto;
-            return this.getX() ==  ObjParam.getX() && 
+            return this.getTipo() == ObjParam.getTipo() &&
+                    this.getX() ==  ObjParam.getX() && 
                     this.getY() == ObjParam.getY() &&
                     this.getAncho() == ObjParam.getAncho() &&
                     this.getAlto() == ObjParam.getAlto(); //&&
@@ -156,7 +183,7 @@ public class Objeto {
      * 
      */
     public String toString() {
-        return " x: " + this.getX() + " y: "+ this.getY() +
+        return "Nombre: " + this.getTipo() + " x: " + this.getX() + " y: "+ this.getY() +
                 " ancho: " + this.getAncho() + " alto: " + this.getAlto();
     }
     
