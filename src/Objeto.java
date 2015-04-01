@@ -9,5 +9,8 @@
  * @author luis
  */
 public class Objeto {
-    
+    //imagen(animacion)
+    //nombre del objeto
+    //colisiones
+    //posiciones xy
 }
