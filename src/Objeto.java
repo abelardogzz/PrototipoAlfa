@@ -4,7 +4,7 @@
  * Modela la definición de todos los objetos de tipo
  * <code>Objeto</code>
  *
- * @author Abelardo Roman Gzz, Eduardo Serna, Luis Carlos Flores
+ * @author Abelardo Gzz, Eduardo Serna, Luis Carlos Flores
  * @version 1.0 
  * @date 31/marzo/2015
  */
