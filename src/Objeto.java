@@ -13,4 +13,17 @@ public class Objeto {
     //nombre del objeto
     //colisiones
     //posiciones xy
+    
+    private int iPosX;
+    private int iPosY;
+    private int iAncho; //ancho del objeto
+    private int iAlto; //largo del objeto
+    
+    
+    public Objeto(int iPosX, int iPosY , int iAncho, int iAlto) {
+        this.iPosX = iPosX;
+        this.iPosY = iPosY;
+        this.iAncho = iAncho;
+        this.iAlto = iAlto;
+    }
 }
