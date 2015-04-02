@@ -14,19 +14,7 @@ import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
 import javax.swing.ImageIcon;
 
-/**
-     * Objeto
-     * 
-     * Metodo constructor usado para crear el objeto animal
-     * creando el icono a partir de una imagen
-     * 
-     * @param iPosX es la <code>posicion en x</code> del objeto.
-     * @param iPosY es la <code>posicion en y</code> del objeto.
-     * @param iAncho es el <code>ancho</code> del objeto.
-     * @param iAlto es el <code>Largo</code> del objeto.
-     //////////////// @param imaImagen es la <code>imagen</code> del objeto.
-     * 
-     */
+
 public class Objeto {
     //imagen(animacion)
     //nombre del objeto///////
@@ -41,6 +29,19 @@ public class Objeto {
     private Image imaImagen;	//imagen.
     
     
+    /**
+     * Objeto
+     * 
+     * Metodo constructor usado para crear el objeto animal
+     * creando el icono a partir de una imagen
+     * 
+     * @param iPosX es la <code>posicion en x</code> del objeto.
+     * @param iPosY es la <code>posicion en y</code> del objeto.
+     * @param iAncho es el <code>ancho</code> del objeto.
+     * @param iAlto es el <code>Largo</code> del objeto.
+     /*@param imaImagen es la <code>imagen</code> del objeto.
+     * 
+     */
     public Objeto(String sTipo, int iPosX, int iPosY , int iAncho, int iAlto, Image imaImagen) {
         this.sTipo = sTipo;
         this.iPosX = iPosX;

@@ -29,11 +29,36 @@ public class Powerup extends Object {
      /** 
      * setPWChile
      * 
-     * Metodo que modifica el valor de moneda <code>moneda</code>.<P>
+     * Metodo que modifica el valor del  <code>powerup</code>.<P>
      * 
+     * 
+     * @param bValor es el valor booleano que se le quiere dar
      */
     public void setPWChile(boolean bValor){
         this.bPWChile=bValor; //Si es verdadero, entonces el Powerup es un chile
     }
-      
+    
+    /** 
+     * setPWEscopeta
+     * 
+     * Metodo que modifica el valor del  <code>powerup</code>.<P>
+     * 
+     * 
+     * @param bValor es el valor booleano que se le quiere dar
+     */
+    public void setPWEscopeta(boolean bValor){
+        this.bPWEscopeta=bValor; //Si es verdadero, entonces el Powerup es una escopeta
+    }
+    
+    /** 
+     * setPWRifle
+     * 
+     * Metodo que modifica el valor del  <code>powerup</code>.<P>
+     * 
+     * 
+     * @param bValor es el valor booleano que se le quiere dar
+     */
+    public void setPWRifle(boolean bValor){
+        this.bPWEscopeta=bValor; //Si es verdadero, entonces el Powerup es un rifle
+    }
 }

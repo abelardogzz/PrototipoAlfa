@@ -26,6 +26,8 @@ public class Moneda extends Object {
      * 
      * Metodo que modifica el valor de moneda <code>moneda</code>.<P>
      * 
+     * @param iValorMoneda es el valor de la<code>moneda</code> .
+     * 
      */
     public void setValorMoneda(int ivalorMoneda){
         this.valorMoneda=ivalorMoneda;
