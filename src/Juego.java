@@ -44,12 +44,12 @@ public class Juego extends JFrame implements Runnable, KeyListener {
     private final int iMAXALTO = 8;  // maxuimo numero de personajes por alto
     private Jugador jugJuan;
     private Jefe jefAlacran;
-    private Alacran alaAlacran;
+    private Alacran alaAlacranLado;
+    private Alacran alaAlacranArriba;
     private Serpiente serSerpiente;
     private Cactus catCactus;
     
     //private Moneda objMoneda;
-    //private Bala objBala;
     //private Objeto objPowerUp;
     //private Objeto objArma;
     //private Objeto objRestVida;
@@ -88,10 +88,15 @@ public class Juego extends JFrame implements Runnable, KeyListener {
         setSize(800,600);
         
         // defino la imagen de Juan
-	URL urlImagenJuanLado = this.getClass().getResource("aqui va la imagen de juan de lado");
+	URL urlImagenJuanLado = this.getClass().getResource("juanito.gif");
         URL urlImagenJuanArriba = this.getClass().getResource("Juan_arriba.png");
+        URL urlImagenAlacranLado = this.getClass().getResource("alacran_lado.gif");
+        URL urlImagenAlacranArriba = this.getClass().getResource("alacran_arriba.gif");
+        URL urlImagenSerpiente = this.getClass().getResource("vibora.gif");
+        URL urlImagenSerpienteAtk = this.getClass().getResource("vibora_atk.gif");
+        URL urlImagenCactus = this.getClass().getResource("Cactus.png");
         
-        // se crea el objeto para malo 
+        // se crea el objeto para Juan 
         /* int iPosX = (iMAXANCHO - 1) * getWidth() / iMAXANCHO;
            int iPosY = (iMAXALTO - 10) * getHeight() / iMAXALTO;   */
         int iPosX = 400;
@@ -100,7 +105,7 @@ public class Juego extends JFrame implements Runnable, KeyListener {
                     getHeight() / iMAXALTO,
                     Toolkit.getDefaultToolkit().getImage(urlImagenJuanLado));
         
-        // defino la imagen de la bala
+        /*// defino la imagen de la bala
 	URL urlImagenBala = this.getClass().getResource("aqui va la imagen de la bala");
             // se crea el objeto para malo 
            // iPosX = (iMAXANCHO - 1) * getWidth() / iMAXANCHO;
@@ -110,7 +115,9 @@ public class Juego extends JFrame implements Runnable, KeyListener {
                     getHeight() / iMAXALTO,
                     Toolkit.getDefaultToolkit().getImage(urlImagenBala));
             
-	URL urlImagenPrincipal = this.getClass().getResource("ba.png");
+	URL urlImagenPrincipal = this.getClass().getResource("ba.png");*/
+        
+        
         // creo la lista de animales
         lklMalos = new LinkedList();
         // genero un numero azar de 3 a 8
