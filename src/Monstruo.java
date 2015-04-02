@@ -15,33 +15,26 @@ import javax.swing.ImageIcon;
 
 public class Monstruo {
     
-    private int iX;     //posicion en x.       
-    private int iY;     //posicion en y.
-    private int iAncho; //ancho del monstruo
-    private int iAlto; //largo del monstruo
-    private Animacion aniMonstruo;	//icono.
-    private String sTipo;
+    protected int iX;     //posicion en x.       
+    protected int iY;     //posicion en y.
+    protected int iAncho; //ancho del monstruo
+    protected int iAlto; //largo del monstruo
+    protected Image imaImagen;	//icono.
+    protected String sTipo;
+    protected boolean visible;
+    protected int iDaño;
     
     
      /**
      * Monstruo
      * 
-     * Este es el metodo constructor utilizado para crear el monstruo base Monstruo
-     * 
-     * @param iPosX es la <code>posicion en x</code> del monstruo.
-     * @param iPosY es la <code>posicion en y</code> del monstruo.
-     * @param aniMonstruo es la <code>animacion</code> del monstruo. Este parametro
-     * se utiliza debido a que clase monstruo es la clase padre, y los hijos
-     * seran encargados de hacer las animaciones
+     * Este es el constructor default
+
      * 
      */
-    public Monstruo(int iPosX,int iPosY,int iAncho,
-            int iAlto, Animacion aniMonstruo){
-        this.iX=iPosX;
-        this.iY=iPosY;
-        this.iAncho=iAncho;
-        this.iAlto=iAlto;
-        this.aniMonstruo=aniMonstruo;
+    public Monstruo(){
+        this.visible=true;
+        
     }
     
      /**
@@ -81,11 +74,36 @@ public class Monstruo {
     }
     
      /**
+     * setDaño
+     * 
+     * Metodo que configura el daño del monstruo
+     * 
+     * @param iDaño es el <code>daño/code> del monstruo.
+     * 
+     */
+    public void setDaño(int iDaño){
+        this.iDaño=iDaño;
+    }
+    
+     /**
+     * getX
+     * 
+    * Metodo que obtiene el daño del monstruo
+     * 
+     * @return iDaño es el <code>daño/code> del monstruo.
+     * 
+     * 
+     */
+    public int getDaño() {
+            return iX;
+    }
+    
+     /**
      * getY
      * 
-     * Metodo de acceso que regresa la posicion en y del objeto 
+     * Metodo de acceso que regresa la posicion en y del monstruo 
      * 
-     * @return posY es la <code>posicion en y</code> del objeto.
+     * @return posY es la <code>posicion en y</code> del monstruo.
      * 
      */
     public int getY() {
@@ -114,6 +132,31 @@ public class Monstruo {
      */
     public int getAlto() {
         return iAlto;
+    }
+    
+    /**
+     * setImagen
+     * 
+     * Metodo modificador usado para cambiar el icono de imagen del monstruo
+     * tomandolo de un objeto imagen
+     * 
+     * @param imaImagen es la <code>imagen</code> del monstruo.
+     * 
+     */
+    public void setImagen(Image imaImagen) {
+        this.imaImagen = imaImagen;
+    }
+    
+     /**
+     * getImagen
+     * 
+     * Metodo de acceso que regresa la imagen que representa el icono del monstruo
+     * 
+     * @return la imagen a partide del <code>icono</code> del monstruo.
+     * 
+     */
+    public Image getImagen() {
+        return imaImagen;
     }
     
     

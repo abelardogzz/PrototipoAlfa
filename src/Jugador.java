@@ -21,6 +21,7 @@ public class Jugador {
     private int iAncho; //ancho del objeto
     private int iAlto; //largo del objeto
     private Image imaImagen;	//imagen.
+    private int iVida;
     
     /**
      * Jugador
@@ -35,12 +36,14 @@ public class Jugador {
      * @param imaImagen es la <code>imagen</code> del objeto.
      * 
      */
-    public Jugador(int iX, int iY , int iAncho, int iAlto,Image imaImagen) {
+    public Jugador(int iX, int iY , int iAncho, int iAlto,Image imaImagen,
+            int iVida) {
         this.iX = iX;
         this.iY = iY;
         this.iAncho = iAncho;
         this.iAlto = iAlto;
         this.imaImagen = imaImagen;
+        this.iVida=iVida;
     }
     
     /**
@@ -53,6 +56,18 @@ public class Jugador {
      */
     public void setX(int iX) {
         this.iX = iX;
+    }
+    
+    /**
+     * reducirVida
+     * 
+     * Metodo modificador usado para cambiar la posicion en x del objeto
+     * 
+     * @param iX es la <code>posicion en x</code> del objeto.
+     * 
+     */
+    public void reducirVida(int iDa) {
+        this.iVida =this.iVida-iDa;
     }
 
     /**
