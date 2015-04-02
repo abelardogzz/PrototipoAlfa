@@ -44,17 +44,19 @@ public class Juego extends JFrame implements Runnable, KeyListener {
     private final int iMAXALTO = 8;  // maxuimo numero de personajes por alto
     private Jugador jugJuan;
     private Jefe jefAlacran;
-    private Alacran alaAlacranLado;
+    //private Alacran alaAlacranLado;
     private Alacran alaAlacranArriba;
     private Serpiente serSerpiente;
     private Cactus catCactus;
     
-    //private Moneda objMoneda;
+    private Moneda objMoneda;
     //private Objeto objPowerUp;
-    //private Objeto objArma;
+    private Arma armArma;
     //private Objeto objRestVida;
     //private Objeto objVidaExtra;
     
+    private int iCantMunicion;
+    private int iCantMoneda;
     private int iDireccion; //Direccion de paddle
     private int iDirBala;  //Direccion bala
     private int iVidas; // Vidas del juego
@@ -63,7 +65,7 @@ public class Juego extends JFrame implements Runnable, KeyListener {
     private boolean bFin;
     private boolean bPausa;
     private boolean bCont;
-    private LinkedList <Monstruo>lklMalos; //Lista Encadenada de fantasmas
+    private LinkedList <Alacran>lklAlacran; //Lista Encadenada de fantasmas
     private LinkedList <Monstruo>lklMalos2; //Lista Encadenada de fantasmas
     
     /* objetos para manejar el buffer del Applet y este no parpadee */
@@ -87,6 +89,32 @@ public class Juego extends JFrame implements Runnable, KeyListener {
         // hago el applet de un tamaño 500,500
         setSize(800,600);
         
+        //Carga los sonidos
+        sdcSonidoChimpy = new SoundClip("aqui va un sonido");
+        sdcSonidoChimpy2 = new SoundClip("aqui va otro sonido");
+        
+        addKeyListener(this);
+        
+        iPuntos=0;
+        iDireccion = 0;
+        iDirBala = 1;
+        iVidas= 4; /////////////////checar esto//////////////////////
+        iCantMunicion = 6;
+        iCantMoneda = 0;
+        bFin= false;
+        bPausa= false;
+        bCont = false;
+        //URL goURL = this.getClass().getResource("gameOver2.png");
+        //imagameover = Toolkit.getDefaultToolkit().getImage(goURL);
+        
+        nombreArchivo = "DatosJuego.txt";
+        vec = new Vector();
+        
+        // Declaras un hilo
+        Thread th = new Thread (this);
+        // Empieza el hilo
+        th.start ();
+        
         // defino la imagen de Juan
 	URL urlImagenJuanLado = this.getClass().getResource("juanito.gif");
         URL urlImagenJuanArriba = this.getClass().getResource("Juan_arriba.png");
@@ -103,7 +131,7 @@ public class Juego extends JFrame implements Runnable, KeyListener {
         int iPosY = 450;
             jugJuan = new Jugador(iPosX,iPosY, (getWidth() / iMAXANCHO)+50,
                     getHeight() / iMAXALTO,
-                    Toolkit.getDefaultToolkit().getImage(urlImagenJuanLado));
+                    Toolkit.getDefaultToolkit().getImage(urlImagenJuanLado), iVidas, iCantMunicion, iCantMoneda);
         
         /*// defino la imagen de la bala
 	URL urlImagenBala = this.getClass().getResource("aqui va la imagen de la bala");
@@ -119,55 +147,31 @@ public class Juego extends JFrame implements Runnable, KeyListener {
         
         
         // creo la lista de animales
-        lklMalos = new LinkedList();
+        lklAlacran = new LinkedList();
         // genero un numero azar de 3 a 8
         int iAzar = 5;
         
-        // genero cada juanito y lo añado a la lista
+        // genero cada alacran y lo añado a la lista
         for(int iA = 1 ; iA < 5 ; iA++){
             for (int iI = 0; iI < iAzar; iI ++) {
                 iPosY = (getHeight() /iMAXALTO) * iA ;    
                 iPosX = (getWidth()/ iMAXANCHO) * (iI * 2) ;    
                 // se crea el objeto Fantasmita
-                Base basPrincipal = new Base(iPosX, iPosY, getWidth() / iMAXANCHO,
+                Alacran alaAlacran = new Alacran(iPosX, iPosY, getWidth() / iMAXANCHO,
                     getHeight() / iMAXALTO,
-                    Toolkit.getDefaultToolkit().getImage(urlImagenPrincipal));
+                    Toolkit.getDefaultToolkit().getImage(urlImagenAlacranLado));
                 //Se agrega el fantasma a la lista
-                //lklMalos.add(basPrincipal);
+                lklAlacran.add(alaAlacran);
             }
         }
-        
-        //Carga los sonidos
-        sdcSonidoChimpy = new SoundClip("monkey1.wav");
-        sdcSonidoChimpy2 = new SoundClip("monkey2.wav");
-        
-        addKeyListener(this);
-        iPuntos=0;
-        iDireccion = 0;
-        iDirBala = 1;
-        iVidas= (int) ((Math.random() * (2)) + 3);
-        bFin= false;
-        bPausa= false;
-        bCont = false;
-        URL goURL = this.getClass().getResource("gameOver2.png");
-        imagameover = Toolkit.getDefaultToolkit().getImage(goURL);
-        
-        nombreArchivo = "DatosJuego.txt";
-        vec = new Vector();
-        
-        // Declaras un hilo
-        Thread th = new Thread (this);
-        // Empieza el hilo
-        th.start ();
-        
     }
     
     public static void main(String[] args){
          //Crea un nuevo objeto JFrameHolaMundo
-        Juego holaMundo = new Juego();
-        holaMundo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Juego jueJuego = new Juego();
+        jueJuego.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Despliega la ventana en pantalla al hacerla visible
-        holaMundo.setVisible(true);
+        jueJuego.setVisible(true);
     }	
     /** 
      * start
@@ -230,11 +234,11 @@ public class Juego extends JFrame implements Runnable, KeyListener {
         
         //reinicia  bala
         iPosY = iPosY - 200;
-            objBala.setX(iPosX);
+            //objBala.setX(iPosX);
             jugJuan.setY(iPosY);/////////////////////checar esto/////////////
         
         //Borra la lista encadenada
-        lklMalos.clear();
+        lklAlacran.clear();
         URL urlImagenPrincipal = this.getClass().getResource("ba.png");
          // genero cada juanito y lo añado a la lista
         for(int iA = 1 ; iA < 5 ; iA++){
@@ -242,7 +246,7 @@ public class Juego extends JFrame implements Runnable, KeyListener {
                 iPosY = (getHeight() /iMAXALTO) * iA ;    
                 iPosX = (getWidth()/ iMAXANCHO) * (iI * 2) ;    
                 // se crea el objeto Fantasmita
-                Base basPrincipal = new Base(iPosX, iPosY, getWidth() / iMAXANCHO,
+                Alacran alaAlacran = new Alacran(iPosX, iPosY, getWidth() / iMAXANCHO,
                     getHeight() / iMAXALTO,
                     Toolkit.getDefaultToolkit().getImage(urlImagenPrincipal));
                 //Se agrega el fantasma a la lista
@@ -273,16 +277,16 @@ public class Juego extends JFrame implements Runnable, KeyListener {
                 break;
         }
         
-        switch(iDirBala){
+        /*switch(iDirBala){
             case 1:
                 objBala.setX(objBala.getX()-3);
                 break;
             case 2:
                 objBala.setX(objBala.getX()+3);
                 break;
-        }  
+        } */ 
     }
-	
+    
     /**
      * checaColision
      * 
@@ -299,92 +303,10 @@ public class Juego extends JFrame implements Runnable, KeyListener {
             jugJuan.setX(getWidth() - jugJuan.getAncho());
         }
         
-        //Si bala choca con la pared
-        if(basBala.getY() < 0){//Techo pantalla
-            if(iDirBala == 1){
-                iDirBala = 2;
-            }else if (iDirBala == 5){
-                iDirBala = 8;
-            }else if (iDirBala == 6){
-                iDirBala = 7;
-            } 
-        }
-        if(basBala.getY()+ basBala.getAlto() > getHeight()){ //Suelo pantalla
-            basBala.setX(400);
-            basBala.setY(250);
-        }
-        if(basBala.getX()<0){//Iquierda pantalla
-            if(iDirBala == 4){
-                iDirBala = 3;
-            }else if (iDirBala == 5){
-                iDirBala = 6;
-            }else if (iDirBala == 8){
-                iDirBala = 7;
-            }
-        }
-        if(basBala.getX() + basBala.getAncho() > getWidth()){//Derecha pantalla
-            if(iDirBala == 3){
-                iDirBala = 4;
-            }else if (iDirBala == 6){
-                iDirBala = 5;
-            }else if (iDirBala == 7){
-                iDirBala = 8;
-            }
-        }
-        
-        
-        //Intersecta Juanito con bala
-        for(Base basPrincipal : lklMalos){
-            if(basBala.intersecta(basPrincipal)){
-                basPrincipal.setX(-100);
-                basPrincipal.setY(0);            
-                
-                switch(iDirBala){
-                    case 7:
-                        iDirBala = 6;
-                        
-                        break;
-                    case 8:
-                        iDirBala = 7;
-                        
-                        break;
-                    case 5:
-                        iDirBala = 8;
-                        break;
-                    case 6:
-                        iDirBala = 7;
-                        break;
-                }
-                
-                
-                sdcSonidoChimpy.play();
-                iCont = iCont + 1;
-            }
-        }
-        //Si bala choca con paddle
-        if(basBala.intersecta(basMalo)){
-             if(iDirBala == 2){
-                iDirBala = 8;
-            }else if (iDirBala == 8){
-                iDirBala = 5;
-            }else if (iDirBala == 7){
-                iDirBala = 6;
-            }else if(iDirBala == 8){
-                iDirBala = 5;
-            }
-        }
-        
         if(iVidas == 0){
             
-            //bPausa = true;
-        }
-        if(iCont == 20){
-            bFin = true;
-            //iVidas = 0;
-            iCont =0;
-        }
-        
-            
+            bPausa = true;
+        }            
     }
     
     public void leeArchivo() throws IOException {
@@ -400,14 +322,14 @@ public class Juego extends JFrame implements Runnable, KeyListener {
                         fileIn = new BufferedReader(new FileReader(nombreArchivo));
                 }
                 String dato = fileIn.readLine();
-                basMalo.setX(Integer.parseInt(dato));
+                jugJuan.setX(Integer.parseInt(dato));
                 dato = fileIn.readLine();
-                basMalo.setY(Integer.parseInt(dato));
+                jugJuan.setY(Integer.parseInt(dato));
                 dato = fileIn.readLine();
-                for(int i=0; i<lklMalos.size(); i++){
-                    lklMalos.get(i).setX(Integer.parseInt(dato));
+                for(int i=0; i<lklAlacran.size(); i++){
+                    lklAlacran.get(i).setX(Integer.parseInt(dato));
                     dato = fileIn.readLine();
-                    lklMalos.get(i).setY(Integer.parseInt(dato));
+                    lklAlacran.get(i).setY(Integer.parseInt(dato));
                     dato = fileIn.readLine();
                 }
                 for(int i=0; i<lklMalos2.size();i++){
@@ -422,11 +344,11 @@ public class Juego extends JFrame implements Runnable, KeyListener {
      public void grabaArchivo() throws IOException {
                                                           
                 PrintWriter fileOut = new PrintWriter(new FileWriter(nombreArchivo));
-                fileOut.println(basMalo.getX());
-                fileOut.println(basMalo.getY());
-                for(int i=0; i<lklMalos.size();i++){
-                    fileOut.println(lklMalos.get(i).getX());
-                    fileOut.println(lklMalos.get(i).getY());
+                fileOut.println(jugJuan.getX());
+                fileOut.println(jugJuan.getY());
+                for(int i=0; i<lklAlacran.size();i++){
+                    fileOut.println(lklAlacran.get(i).getX());
+                    fileOut.println(lklAlacran.get(i).getY());
                 }
                 for(int i=0; i<lklMalos2.size();i++){
                     fileOut.println(lklMalos2.get(i).getX());
@@ -482,17 +404,15 @@ public class Juego extends JFrame implements Runnable, KeyListener {
     public void paint1(Graphics graDibujo) {
         //if(true){
             // si la imagen ya se cargo
-            if (basMalo != null) {
+            if (jugJuan != null) {
                 if(!bFin){
                     //Dibuja la imagen de principal en el Applet
-                    for (Base basPrincipal : lklMalos) {
+                    for (Alacran alaAlacran : lklAlacran) {
                         //Dibuja la imagen de dumbo en el Applet
-                        basPrincipal.paint(graDibujo, this);
+                        alaAlacran.paint(graDibujo, this);
                     }
                     //Pinta malo
-                    basMalo.paint(graDibujo, this);
-                    //Pinta bala
-                    basBala.paint(graDibujo, this);
+                    jugJuan.paint(graDibujo, this);
                     
                     graDibujo.setColor(Color.red);
                     graDibujo.setFont(new Font("Serif", Font.BOLD, 25));
@@ -501,9 +421,6 @@ public class Juego extends JFrame implements Runnable, KeyListener {
                     graDibujo.drawImage(imagameover, 150, 150, this);
                     graDibujo.setFont(new Font("Serif", Font.BOLD, 25));
                     graDibujo.drawString("Si deseas volver a jugar oprime tecla Y", 200 , 100);
-                    iposY = this.getHeight()/2 - anim.getImagen().getHeight(null)/2;
-                    iposX =  3 * this.getWidth()/4 ;
-                    graDibujo.drawImage(anim.getImagen(), iposX, iposY, this);
                 }
 
             } // sino se ha cargado se dibuja un mensaje 

@@ -159,5 +159,18 @@ public class Monstruo {
         return imaImagen;
     }
     
+    /**
+     * paint
+     * 
+     * Metodo para pintar el animal
+     * 
+     * @param graGrafico    objeto de la clase <code>Graphics</code> para graficar
+     * @param imoObserver  objeto de la clase <code>ImageObserver</code> es el 
+     *    Applet donde se pintara
+     * 
+     */
+    public void paint(Graphics graGrafico, ImageObserver imoObserver) {
+        graGrafico.drawImage(getImagen(), getX(), getY(), getAncho(), getAlto(), imoObserver);
+    }
     
 }
