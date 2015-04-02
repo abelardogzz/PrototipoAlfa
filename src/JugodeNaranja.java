@@ -8,7 +8,7 @@
  *
  * @author Lalo Serna
  */
-public class JugodeNaranja {
+public class JugodeNaranja extends Object {
     private boolean bJugoCuarto;
     private boolean bJugoMitad;
     private boolean bJugoCompleto;
@@ -64,4 +64,7 @@ public class JugodeNaranja {
         this.bJugoCompleto=bValor; //Si es verdadero, entonces es un jugo
         //de naranja completo
     }
+    
+    
+    
 }

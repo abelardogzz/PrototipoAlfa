@@ -21,6 +21,7 @@ public class Jugador {
     private int iAncho; //ancho del jugador
     private int iAlto; //largo del jugador
     private Image imaImagen;	//imagen.
+    private int iVidaTotal; //Max vida
     private int iVida;
     private int icantMunicion;
     private int icantMonedas;
@@ -40,13 +41,14 @@ public class Jugador {
      * 
      */
     public Jugador(int iX, int iY , int iAncho, int iAlto,Image imaImagen,
-            int iVida, int icantMunicion, int icantMonedas) {
+            int iVida,int iVidaTotal, int icantMunicion, int icantMonedas) {
         this.iX = iX;
         this.iY = iY;
         this.iAncho = iAncho;
         this.iAlto = iAlto;
         this.imaImagen = imaImagen;
         this.iVida=iVida;
+        this.iVidaTotal=iVidaTotal;
         this.icantMonedas=icantMonedas;
         armActual=new Arma();
         armActual.setArma("revolver");
@@ -65,6 +67,17 @@ public class Jugador {
         this.iX = iX;
     }
     
+    /**
+     * setVidaTotal
+     * 
+     * Metodo modificador usado para ponerle mas vida total al jugador
+     * 
+     * @param iVidaExtra es la <code>vida o vidas extra</code> del jugador.
+     * 
+     */
+    public void setVidaTotal(int iVidaExtra) {
+        this.iVidaTotal =this.iVidaTotal+ iVidaExtra;
+    }
     /**
      * reducirVida
      * 
