@@ -188,8 +188,7 @@ public class Juego extends JFrame implements Runnable, KeyListener {
      * 
      */
     public void run () {
-        //Guarda el tiempo actual del sistema 
-            tiempoActual = System.currentTimeMillis();
+        
         /* mientras dure el juego, se actualizan posiciones de jugadores
            se checa si hubo colisiones para desaparecer jugadores o corregir
            movimientos y se vuelve a pintar todo
