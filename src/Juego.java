@@ -42,7 +42,7 @@ public class Juego extends JFrame implements Runnable, KeyListener {
 
     private final int iMAXANCHO = 10; // maximo numero de personajes por ancho
     private final int iMAXALTO = 8;  // maxuimo numero de personajes por alto
-    private Jugador jugJuan;         // Objeto principal
+    private Jugador jugJuan;
     private Monstruo monJefe;
     private Monstruo monAlacran;
     private Monstruo monLobo;
@@ -63,8 +63,8 @@ public class Juego extends JFrame implements Runnable, KeyListener {
     private boolean bFin;
     private boolean bPausa;
     private boolean bCont;
-    private LinkedList <>lklMalos; //Lista Encadenada de fantasmas
-    private LinkedList <Base>lklMalos2; //Lista Encadenada de fantasmas
+    private LinkedList <Monstruo>lklMalos; //Lista Encadenada de fantasmas
+    private LinkedList <Monstruo>lklMalos2; //Lista Encadenada de fantasmas
     
     /* objetos para manejar el buffer del Applet y este no parpadee */
     private Image    imaImagenApplet;   // Imagen a proyectar en Applet	
@@ -75,14 +75,6 @@ public class Juego extends JFrame implements Runnable, KeyListener {
     private Vector vec; //Objeto vector para guardar los dats
     private String nombreArchivo; //Nombre del archivo
     
-    //Objeto de la clase Animacion para el manejo de la animación
-         private Animacion anim;
-         //Variables de control de tiempo de la animación
-         private long tiempoActual;
-         private long tiempoInicial;
-         //Posición de la animación
-         int iposX, iposY;
-	
     /** 
      * init
      * 
@@ -93,10 +85,11 @@ public class Juego extends JFrame implements Runnable, KeyListener {
      */
     public Juego() {
         // hago el applet de un tamaño 500,500
-        setSize(800,500);
+        setSize(800,600);
         
-        // defino la imagen del malo
-	URL urlImagenMalo = this.getClass().getResource("truck.png");
+        // defino la imagen de Juan
+	URL urlImagenJuanLado = this.getClass().getResource("aqui va la imagen de juan de lado");
+        URL urlImagenJuanArriba = this.getClass().getResource("Juan_arriba.png");
         
         // se crea el objeto para malo 
         /* int iPosX = (iMAXANCHO - 1) * getWidth() / iMAXANCHO;
@@ -108,7 +101,7 @@ public class Juego extends JFrame implements Runnable, KeyListener {
                     Toolkit.getDefaultToolkit().getImage(urlImagenMalo));
         
         // defino la imagen de la bala
-	URL urlImagenBala = this.getClass().getResource("asteroide.png");
+	URL urlImagenBala = this.getClass().getResource("aqui va la imagen de la bala");
             // se crea el objeto para malo 
            // iPosX = (iMAXANCHO - 1) * getWidth() / iMAXANCHO;
             //iPosY = (iMAXALTO - 1) * getHeight() / iMAXALTO;        
