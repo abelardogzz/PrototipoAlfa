@@ -38,15 +38,16 @@ public class Objeto {
     private int iPosY;  //posicion Y del objeto
     private int iAncho; //ancho del objeto
     private int iAlto; //largo del objeto
-    private Animacion AniObjeto; //animacion del objeto
+    private Image imaImagen;	//imagen.
     
     
-    public Objeto(String sTipo, int iPosX, int iPosY , int iAncho, int iAlto) {
+    public Objeto(String sTipo, int iPosX, int iPosY , int iAncho, int iAlto, Image imaImagen) {
         this.sTipo = sTipo;
         this.iPosX = iPosX;
         this.iPosY = iPosY;
         this.iAncho = iAncho;
         this.iAlto = iAlto;
+        this.imaImagen = imaImagen;
     }
     
     /**
@@ -95,6 +96,31 @@ public class Objeto {
      */
     public int getY() {
         return iPosY;
+    }
+    
+    /**
+     * setImagen
+     * 
+     * Metodo modificador usado para cambiar el icono de imagen del objeto
+     * tomandolo de un objeto imagen
+     * 
+     * @param imaImagen es la <code>imagen</code> del objeto.
+     * 
+     */
+    public void setImagen(Image imaImagen) {
+        this.imaImagen = imaImagen;
+    }
+
+    /**
+     * getImagen
+     * 
+     * Metodo de acceso que regresa la imagen que representa el icono del objeto
+     * 
+     * @return la imagen a partide del <code>icono</code> del objeto.
+     * 
+     */
+    public Image getImagen() {
+        return imaImagen;
     }
     
     /**

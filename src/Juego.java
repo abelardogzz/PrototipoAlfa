@@ -57,7 +57,6 @@ public class Juego extends JFrame implements Runnable, KeyListener {
     private int iDireccion; //Direccion de paddle
     private int iDirBala;  //Direccion bala
     private int iVidas; // Vidas del juego
-    private int iCont;
     private int iPuntos; // Vidas del juego
     private Image imagameover; //Despliega imagen de fin de juego
     private boolean bFin;
@@ -96,9 +95,9 @@ public class Juego extends JFrame implements Runnable, KeyListener {
            int iPosY = (iMAXALTO - 10) * getHeight() / iMAXALTO;   */
         int iPosX = 400;
         int iPosY = 450;
-            basMalo = new Base(iPosX,iPosY, (getWidth() / iMAXANCHO)+50,
+            jugJuan = new Jugador(iPosX,iPosY, (getWidth() / iMAXANCHO)+50,
                     getHeight() / iMAXALTO,
-                    Toolkit.getDefaultToolkit().getImage(urlImagenMalo));
+                    Toolkit.getDefaultToolkit().getImage(urlImagenJuanLado));
         
         // defino la imagen de la bala
 	URL urlImagenBala = this.getClass().getResource("aqui va la imagen de la bala");
@@ -106,7 +105,7 @@ public class Juego extends JFrame implements Runnable, KeyListener {
            // iPosX = (iMAXANCHO - 1) * getWidth() / iMAXANCHO;
             //iPosY = (iMAXALTO - 1) * getHeight() / iMAXALTO;        
         iPosY = iPosY - 200;
-            basBala = new Base(iPosX,iPosY, getWidth() / iMAXANCHO,
+            objBala = new Objeto("Bala", iPosX,iPosY, getWidth() / iMAXANCHO,
                     getHeight() / iMAXALTO,
                     Toolkit.getDefaultToolkit().getImage(urlImagenBala));
             
