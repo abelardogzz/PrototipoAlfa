@@ -15,7 +15,7 @@ public class Arma {
      * Arma
      * 
      * Metodo constructor de la clase <code>Arma</code>.<P>
-     * 
+     * s
      */
     public Arma(){
         String stipoArma="revolver";
