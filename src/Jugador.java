@@ -1,7 +1,7 @@
 /**
  * Jugador
  *
- * Modela la definición de todos los objetos de tipo
+ * Modela la definición de todos los jugadors de tipo
  * <code>Jugador</code>
  *
  * @author Abelardo Gzz, Eduardo S., Luis F.
@@ -18,40 +18,47 @@ public class Jugador {
     
     private int iX;     //posicion en x.       
     private int iY;     //posicion en y.
-    private int iAncho; //ancho del objeto
-    private int iAlto; //largo del objeto
+    private int iAncho; //ancho del jugador
+    private int iAlto; //largo del jugador
     private Image imaImagen;	//imagen.
     private int iVida;
+    private int icantMunicion;
+    private int icantMonedas;
+    private Arma armActual;
     
     /**
      * Jugador
      * 
-     * Metodo constructor usado para crear el objeto animal
+     * Metodo constructor usado para crear el jugador animal
      * creando el icono a partir de una imagen
      * 
-     * @param iX es la <code>posicion en x</code> del objeto.
-     * @param iY es la <code>posicion en y</code> del objeto.
-     * @param iAncho es el <code>ancho</code> del objeto.
-     * @param iAlto es el <code>Largo</code> del objeto.
-     * @param imaImagen es la <code>imagen</code> del objeto.
+     * @param iX es la <code>posicion en x</code> del jugador.
+     * @param iY es la <code>posicion en y</code> del jugador.
+     * @param iAncho es el <code>ancho</code> del jugador.
+     * @param iAlto es el <code>Largo</code> del jugador.
+     * @param imaImagen es la <code>imagen</code> del jugador.
      * 
      */
     public Jugador(int iX, int iY , int iAncho, int iAlto,Image imaImagen,
-            int iVida) {
+            int iVida, int icantMunicion, int icantMonedas) {
         this.iX = iX;
         this.iY = iY;
         this.iAncho = iAncho;
         this.iAlto = iAlto;
         this.imaImagen = imaImagen;
         this.iVida=iVida;
+        this.icantMonedas=icantMonedas;
+        armActual=new Arma();
+        armActual.setArma("revolver");
+        
     }
     
     /**
      * setX
      * 
-     * Metodo modificador usado para cambiar la posicion en x del objeto
+     * Metodo modificador usado para cambiar la posicion en x del jugador
      * 
-     * @param iX es la <code>posicion en x</code> del objeto.
+     * @param iX es la <code>posicion en x</code> del jugador.
      * 
      */
     public void setX(int iX) {
@@ -61,9 +68,9 @@ public class Jugador {
     /**
      * reducirVida
      * 
-     * Metodo modificador usado para cambiar la posicion en x del objeto
+     * Metodo modificador usado para cambiar la posicion en x del jugador
      * 
-     * @param iX es la <code>posicion en x</code> del objeto.
+     * @param iX es la <code>posicion en x</code> del jugador.
      * 
      */
     public void reducirVida(int iDa) {
@@ -73,9 +80,9 @@ public class Jugador {
     /**
      * getX
      * 
-     * Metodo de acceso que regresa la posicion en x del objeto 
+     * Metodo de acceso que regresa la posicion en x del jugador 
      * 
-     * @return iX es la <code>posicion en x</code> del objeto.
+     * @return iX es la <code>posicion en x</code> del jugador.
      * 
      */
     public int getX() {
@@ -85,21 +92,69 @@ public class Jugador {
     /**
      * setY
      * 
-     * Metodo modificador usado para cambiar la posicion en y del objeto 
+     * Metodo modificador usado para cambiar la posicion en y del jugador 
      * 
-     * @param iY es la <code>posicion en y</code> del objeto.
+     * @param iY es la <code>posicion en y</code> del jugador.
      * 
      */
     public void setY(int iY) {
             this.iY = iY;
     }
+    
+    /**
+     * getcantMonedas
+     * 
+     * Metodo de acceso que regresa la cant monedas de jugador
+     * 
+     * @return icantMonedas es la <code>cant monedas</code> del jugador.
+     * 
+     */
+    public int getcantMonedas() {
+            return icantMonedas;
+    }
+    
+   /**
+     * añadircantMonedas
+     * 
+     * Metodo de modificacion que accede la cant monedas de jugador
+     * 
+     * @param icantMonedas es la <code>cant monedas</code> que gana el jugador.
+     * 
+     */
+    public void añadircantMonedas(int icantMonedas) {
+            this.icantMonedas=this.icantMonedas+icantMonedas;
+    }
+    
+     /**
+     * getcantMunicion
+     * 
+     * Metodo de acceso que regresa la cant municion de jugador
+     * 
+     * @return icantMunicion es la <code>cant municion</code> del jugador.
+     * 
+     */
+    public int getcantMunicion() {
+            return icantMunicion;
+    }
+    
+   /**
+     * añadircantMunicion
+     * 
+     * Metodo de modificacion que accede la cant municion de jugador
+     * 
+     * @param icantMunicion es la <code>cant municion</code> que gana el jugador.
+     * 
+     */
+    public void añadircantMunicion(int icantMunicion) {
+            this.icantMunicion=this.icantMunicion+icantMunicion;
+    }
 
     /**
      * getY
      * 
-     * Metodo de acceso que regresa la posicion en y del objeto 
+     * Metodo de acceso que regresa la posicion en y del jugador 
      * 
-     * @return posY es la <code>posicion en y</code> del objeto.
+     * @return posY es la <code>posicion en y</code> del jugador.
      * 
      */
     public int getY() {
@@ -109,10 +164,10 @@ public class Jugador {
     /**
      * setImagen
      * 
-     * Metodo modificador usado para cambiar el icono de imagen del objeto
-     * tomandolo de un objeto imagen
+     * Metodo modificador usado para cambiar el icono de imagen del jugador
+     * tomandolo de un jugador imagen
      * 
-     * @param imaImagen es la <code>imagen</code> del objeto.
+     * @param imaImagen es la <code>imagen</code> del jugador.
      * 
      */
     public void setImagen(Image imaImagen) {
@@ -122,9 +177,9 @@ public class Jugador {
     /**
      * getImagen
      * 
-     * Metodo de acceso que regresa la imagen que representa el icono del objeto
+     * Metodo de acceso que regresa la imagen que representa el icono del jugador
      * 
-     * @return la imagen a partide del <code>icono</code> del objeto.
+     * @return la imagen a partide del <code>icono</code> del jugador.
      * 
      */
     public Image getImagen() {
@@ -160,8 +215,8 @@ public class Jugador {
      * 
      * Metodo para pintar el animal
      * 
-     * @param graGrafico   objeto de la clase <code>Graphics</code> para graficar
-     * @param imoObserver  objeto de la clase <code>ImageObserver</code> es el 
+     * @param graGrafico   jugador de la clase <code>Graphics</code> para graficar
+     * @param imoObserver  jugador de la clase <code>ImageObserver</code> es el 
      *    Applet donde se pintara
      * 
      */
@@ -174,7 +229,7 @@ public class Jugador {
      *
      * Metodo que checa si un animal intersecta a otro
      *
-     * @param objObjeto es un objeto de la clase <code>Object</code>
+     * @param objObjeto es un jugador de la clase <code>Object</code>
      * @return un boleano para saber si intersecta o no
      */
     public boolean intersecta(Object objObjeto) {
