@@ -11,7 +11,6 @@
  * @version 1.0
  * @date 18/Feb/15
  */
-package breakingbad_animacion;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Color;
@@ -43,9 +42,17 @@ public class Juego extends JFrame implements Runnable, KeyListener {
 
     private final int iMAXANCHO = 10; // maximo numero de personajes por ancho
     private final int iMAXALTO = 8;  // maxuimo numero de personajes por alto
-    private Base basPrincipal;         // Objeto principal
-    private Base basMalo;         // Objeto malo
-    private Base basBala;         // Objeto bala
+    private Jugador jugJuan;         // Objeto principal
+    private Monstruo monJefe;
+    private Monstruo monAlacran;
+    private Monstruo monLobo;
+    private Monstruo monCholo;
+    private Objeto objMoneda;
+    private Objeto objBala;
+    private Objeto objPowerUp;
+    private Objeto objArma;
+    private Objeto objRestVida;
+    private Objeto objVidaExtra;
     
     private int iDireccion; //Direccion de paddle
     private int iDirBala;  //Direccion bala
@@ -56,7 +63,7 @@ public class Juego extends JFrame implements Runnable, KeyListener {
     private boolean bFin;
     private boolean bPausa;
     private boolean bCont;
-    private LinkedList <Base>lklMalos; //Lista Encadenada de fantasmas
+    private LinkedList <>lklMalos; //Lista Encadenada de fantasmas
     private LinkedList <Base>lklMalos2; //Lista Encadenada de fantasmas
     
     /* objetos para manejar el buffer del Applet y este no parpadee */
@@ -129,47 +136,6 @@ public class Juego extends JFrame implements Runnable, KeyListener {
                 lklMalos.add(basPrincipal);
             }
         }
-        
-         //Se cargan las imágenes(cuadros) para la animación
-        Image walter1 = Toolkit.getDefaultToolkit().getImage(
-                            this.getClass().getResource("walter1.png"));
-        Image walter2 = Toolkit.getDefaultToolkit().getImage(
-                            this.getClass().getResource("walter2.png"));
-        Image walter3 = Toolkit.getDefaultToolkit().getImage(
-                            this.getClass().getResource("walter3.png"));
-        Image walter4 = Toolkit.getDefaultToolkit().getImage(
-                            this.getClass().getResource("walter4.png"));
-        Image walter5 = Toolkit.getDefaultToolkit().getImage(
-                            this.getClass().getResource("walter5.png"));
-        Image walter6 = Toolkit.getDefaultToolkit().getImage(
-                            this.getClass().getResource("walter6.png"));
-        Image walter7 = Toolkit.getDefaultToolkit().getImage(
-                            this.getClass().getResource("walter7.png"));
-        Image walter8 = Toolkit.getDefaultToolkit().getImage(
-                            this.getClass().getResource("walter8.png"));
-        Image walter9 = Toolkit.getDefaultToolkit().getImage(
-                            this.getClass().getResource("walter9.png"));
-        Image walter10 = Toolkit.getDefaultToolkit().getImage(
-                            this.getClass().getResource("walter10.png"));
-        Image walter11 = Toolkit.getDefaultToolkit().getImage(
-                            this.getClass().getResource("walter11.png"));
-        Image walter12 = Toolkit.getDefaultToolkit().getImage(
-                            this.getClass().getResource("walter12.png"));
-        
-        anim = new Animacion();
-        anim.sumaCuadro(walter1, 100);
-        anim.sumaCuadro(walter2, 100);
-        anim.sumaCuadro(walter3, 100);
-        anim.sumaCuadro(walter4, 100);
-        anim.sumaCuadro(walter5, 100);
-        anim.sumaCuadro(walter6, 100);
-        anim.sumaCuadro(walter7, 100);
-        anim.sumaCuadro(walter8, 100);
-        anim.sumaCuadro(walter9, 100);
-        anim.sumaCuadro(walter10, 100);
-        anim.sumaCuadro(walter11, 100);
-        anim.sumaCuadro(walter12, 100);
-        
         
         //Carga los sonidos
         sdcSonidoChimpy = new SoundClip("monkey1.wav");
@@ -313,42 +279,12 @@ public class Juego extends JFrame implements Runnable, KeyListener {
         
         switch(iDirBala){
             case 1:
-                basBala.setY(basBala.getY()-3);
+                objBala.setX(objBala.getX()-3);
                 break;
             case 2:
-                basBala.setY(basBala.getY()+3);
+                objBala.setX(objBala.getX()+3);
                 break;
-            case 3:
-                basBala.setX(basBala.getX()+3);
-                break;
-            case 4:
-                basBala.setX(basBala.getX()-3);
-                break;
-            case 5:
-                basBala.setY(basBala.getY()-3);
-                basBala.setX(basBala.getX()-3);
-                break;
-            case 6:
-                basBala.setY(basBala.getY()-3);
-                basBala.setX(basBala.getX()+3);
-                break;
-            case 7:
-                basBala.setX(basBala.getX()+3);
-                basBala.setY(basBala.getY()+3);
-                break;
-            case 8:
-                basBala.setX(basBala.getX()-3);
-                basBala.setY(basBala.getY()+3);
-                break;
-        }
-        //Determina el tiempo que ha transcurrido desde que el Applet 
-        //inicio su ejecución
-        long tiempoTranscurrido=System.currentTimeMillis() - tiempoActual;
-        //Guarda el tiempo actual
-        tiempoActual += tiempoTranscurrido;
-        //Actualiza la animación en base al tiempo transcurrido
-        anim.actualiza(tiempoTranscurrido);
-        
+        }  
     }
 	
     /**
@@ -568,7 +504,7 @@ public class Juego extends JFrame implements Runnable, KeyListener {
                 }else {
                     graDibujo.drawImage(imagameover, 150, 150, this);
                     graDibujo.setFont(new Font("Serif", Font.BOLD, 25));
-                    graDibujo.drawString("SI deseas volver a jugar oprime tecla Y", 200 , 100);
+                    graDibujo.drawString("Si deseas volver a jugar oprime tecla Y", 200 , 100);
                     iposY = this.getHeight()/2 - anim.getImagen().getHeight(null)/2;
                     iposX =  3 * this.getWidth()/4 ;
                     graDibujo.drawImage(anim.getImagen(), iposX, iposY, this);
@@ -606,6 +542,9 @@ public class Juego extends JFrame implements Runnable, KeyListener {
         if(keyEvent.getKeyCode() == KeyEvent.VK_ESCAPE){
             bFin=true;
         }
+        else if(keyEvent.getKeyCode() == KeyEvent.VK_W) {
+            iDireccion = 1; //cambia la direccion hacia arriba
+        }
         
     }
 
@@ -639,6 +578,9 @@ public class Juego extends JFrame implements Runnable, KeyListener {
             iDireccion = 0;
         }
         if(keyEvent.getKeyCode() == KeyEvent.VK_D){
+            iDireccion = 0;
+        }
+        if(keyEvent.getKeyCode() == KeyEvent.VK_W) {
             iDireccion = 0;
         }
         if(keyEvent.getKeyCode() == KeyEvent.VK_Y){
