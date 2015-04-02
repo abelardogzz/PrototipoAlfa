@@ -11,10 +11,24 @@
 public class Arma {
     private String stipoArma;
     
+     /** 
+     * Arma
+     * 
+     * Metodo constructor de la clase <code>Arma</code>.<P>
+     * 
+     */
     public Arma(){
         String stipoArma="revolver";
     }
     
+     /**
+     * setArma
+     * 
+     * Metodo modificador usado para cambiar el tipo de arma
+     * 
+     * @param stipoArma es el <code>tipo de arma</code> .
+     * 
+     */
     public void setArma(String stipoArma){
         this.stipoArma=stipoArma;
     }
