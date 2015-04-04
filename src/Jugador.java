@@ -20,7 +20,7 @@ public class Jugador {
     private int iY;     //posicion en y.
     private int iAncho; //ancho del jugador
     private int iAlto; //largo del jugador
-    private Image imaImagen;	//imagen.
+    private Animacion aniAnimacion;	//imagen.
     private int iVidaTotal; //Max vida
     private int iVida; //La vida que tiene actualmente (si le pegan, disminuye)
     private int icantMunicion;
@@ -46,7 +46,8 @@ public class Jugador {
         this.iY = iY;
         this.iAncho = iAncho;
         this.iAlto = iAlto;
-        this.imaImagen = imaImagen;
+        aniAnimacion=new Animacion();
+        aniAnimacion.sumaCuadro(imaImagen,100);
         this.iVida=iVida;
         this.iVidaTotal=iVidaTotal;
         this.icantMonedas=icantMonedas;
@@ -174,6 +175,7 @@ public class Jugador {
         return iY;
     }
     
+   
     /**
      * setImagen
      * 
@@ -184,20 +186,10 @@ public class Jugador {
      * 
      */
     public void setImagen(Image imaImagen) {
-        this.imaImagen = imaImagen;
+        aniAnimacion.quitaCuadros();
+        aniAnimacion.sumaCuadro(imaImagen,100);
     }
 
-    /**
-     * getImagen
-     * 
-     * Metodo de acceso que regresa la imagen que representa el icono del jugador
-     * 
-     * @return la imagen a partide del <code>icono</code> del jugador.
-     * 
-     */
-    public Image getImagen() {
-        return imaImagen;
-    }
     
     /**
      * getAncho
@@ -234,8 +226,21 @@ public class Jugador {
      * 
      */
     public void paint(Graphics graGrafico, ImageObserver imoObserver) {
-        graGrafico.drawImage(getImagen(), getX(), getY(), getAncho(), getAlto(), imoObserver);
+        graGrafico.drawImage(aniAnimacion.getImagen(), this.getX(), this.getY(),imoObserver);
     }
+    
+     /**
+     * actualiza
+     * 
+     * Metodo que actualiza los frames
+     * 
+     * @param lTiempoTranscurrido es el tiempo transcurrido desde que inicio la ejecucion
+     * 
+     */
+    public void actualiza(long lTiempoTranscurrido) {
+      aniAnimacion.actualiza(lTiempoTranscurrido);
+    }
+    
     
     /**
      * intersecta

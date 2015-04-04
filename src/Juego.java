@@ -54,7 +54,7 @@ public class Juego extends JFrame implements Runnable, KeyListener {
     private Arma armArma;
     //private Objeto objRestVida;
     //private Objeto objVidaExtra;
-    
+    private Image dbImage;    // Imagen a proyectar
     private int iCantMunicion;
     private int iCantMoneda;
     private int iDireccion; //Direccion de paddle
@@ -65,9 +65,10 @@ public class Juego extends JFrame implements Runnable, KeyListener {
     private boolean bFin;
     private boolean bPausa;
     private boolean bCont;
+    long lbeforeTime; //long que me dira el tiempo del sistema
     private LinkedList <Alacran>lklAlacran; //Lista Encadenada de fantasmas
     private LinkedList <Monstruo>lklMalos2; //Lista Encadenada de fantasmas
-    
+    Animacion aniAnima;
     /* objetos para manejar el buffer del Applet y este no parpadee */
     private Image    imaImagenApplet;   // Imagen a proyectar en Applet	
     private Graphics graGraficaApplet;  // Objeto grafico de la Image
@@ -127,8 +128,10 @@ public class Juego extends JFrame implements Runnable, KeyListener {
         int iPosY = 450;
             jugJuan = new Jugador(50,50,100,
                     100,
-                    Toolkit.getDefaultToolkit().getImage(urlImagenJuanLado), iVidas,iVidas, iCantMunicion, iCantMoneda);
-   
+                    Toolkit.getDefaultToolkit().getImage(urlImagenAlacranArriba), iVidas,iVidas, iCantMunicion, iCantMoneda);
+            
+        aniAnima=new Animacion();
+        aniAnima.sumaCuadro(Toolkit.getDefaultToolkit().getImage(urlImagenJuanLado), 100);
         
    
     }
@@ -166,19 +169,21 @@ public class Juego extends JFrame implements Runnable, KeyListener {
      * 
      */
     public void run () {
-        
+        lbeforeTime = System.currentTimeMillis();
         /* mientras dure el juego, se actualizan posiciones de jugadores
            se checa si hubo colisiones para desaparecer jugadores o corregir
            movimientos y se vuelve a pintar todo
         */ 
         while (true) {
+            
             if(!bCont){
                 
                 if(!bPausa){
+                    repaint();
                     actualiza();
                     checaColision();
                 } 
-                repaint();
+                
             }
             
             try	{
@@ -217,6 +222,9 @@ public class Juego extends JFrame implements Runnable, KeyListener {
      * 
      */
     public void actualiza(){
+     
+         
+        
         switch(iDireccion){
             case 1:
                 jugJuan.setY(jugJuan.getY()-5);
@@ -273,18 +281,22 @@ public class Juego extends JFrame implements Runnable, KeyListener {
      * 
      */
     public void paint (Graphics graGrafico){
-        // Inicializan el DoubleBuffer
+// Inicializan el DoubleBuffer
         if (imaImagenApplet == null){
                 imaImagenApplet = createImage (this.getSize().width, 
                         this.getSize().height);
                 graGraficaApplet = imaImagenApplet.getGraphics ();
         }
-
         // Actualiza la imagen de fondo.
+		graGraficaApplet.setColor (getBackground ());
+		graGraficaApplet.fillRect (0, 0, this.getSize().width, this.getSize().height);
+        
+        /*Actualiza la imagen de fondo.
         URL urlImagenFondo = this.getClass().getResource("BB_background2.png");
         Image imaImagenFondo = Toolkit.getDefaultToolkit().getImage(urlImagenFondo);
-         graGraficaApplet.drawImage(imaImagenFondo, 0, 0, getWidth(), getHeight(), this);
-
+        graGraficaApplet.drawImage(imaImagenFondo, 0, 0, getWidth(), getHeight(), this);
+        
+        */
         // Actualiza el Foreground.
         graGraficaApplet.setColor (getForeground());
         paint1(graGraficaApplet);
@@ -305,24 +317,18 @@ public class Juego extends JFrame implements Runnable, KeyListener {
      * 
      */
     public void paint1(Graphics graDibujo) {
-        //if(true){
-            // si la imagen ya se cargo
+        graDibujo.fillRect(0, 0, WIDTH, HEIGHT);
             if (jugJuan != null) {
-                if(!bFin){
+                
                     //Dibuja la imagen de principal en el Applet
                   
                     //Pinta malo
-                    jugJuan.paint(graDibujo, this);
-                    
+                    jugJuan.paint(graDibujo,this);
+                    graDibujo.drawImage(aniAnima.getImagen(),50,50,this);
                     graDibujo.setColor(Color.red);
                     graDibujo.setFont(new Font("Serif", Font.BOLD, 25));
                     graDibujo.drawString("Puntos: "+ iPuntos, 400 , 100);
-                }else {
-                    graDibujo.drawImage(imagameover, 150, 150, this);
-                    graDibujo.setFont(new Font("Serif", Font.BOLD, 25));
-                    graDibujo.drawString("Si deseas volver a jugar oprime tecla Y", 200 , 100);
-                }
-
+             
             } // sino se ha cargado se dibuja un mensaje 
             else {
                     //Da un mensaje mientras se carga el dibujo	
