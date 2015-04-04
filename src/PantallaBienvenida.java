@@ -30,7 +30,7 @@ public class PantallaBienvenida extends JFrame implements ActionListener, KeyLis
         
          //Crea un nuevo objeto JFrameHolaMundo
         PantallaBienvenida holaMundo = new PantallaBienvenida();
-
+        holaMundo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Despliega la ventana en pantalla al hacerla visible
         holaMundo.setVisible(true);
         
@@ -56,12 +56,10 @@ public class PantallaBienvenida extends JFrame implements ActionListener, KeyLis
     
     public void actionPerformed(ActionEvent e) {
         String BtnPress = e.getActionCommand();
-        
             PantallaSeleccion HolaMundo2 = new PantallaSeleccion();
             HolaMundo2.setVisible(true);
-            HolaMundo2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            this.dispatchEvent(new WindowEvent(this, 
-                                                WindowEvent.WINDOW_CLOSING));
+            this.dispose();
+            
     }
 
     @Override
