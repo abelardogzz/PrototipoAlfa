@@ -22,7 +22,7 @@ public class Jugador {
     private int iAlto; //largo del jugador
     private Image imaImagen;	//imagen.
     private int iVidaTotal; //Max vida
-    private int iVida;
+    private int iVida; //La vida que tiene actualmente (si le pegan, disminuye)
     private int icantMunicion;
     private int icantMonedas;
     private Arma armActual;
