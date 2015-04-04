@@ -71,8 +71,7 @@ public class Juego extends JFrame implements Runnable, KeyListener {
     /* objetos para manejar el buffer del Applet y este no parpadee */
     private Image    imaImagenApplet;   // Imagen a proyectar en Applet	
     private Graphics graGraficaApplet;  // Objeto grafico de la Image
-    private SoundClip sdcSonidoChimpy;   // Objeto sonido de Chimpy
-    private SoundClip sdcSonidoChimpy2;   // Objeto sonido de Chimpy
+
     
     private Vector vec; //Objeto vector para guardar los dats
     private String nombreArchivo; //Nombre del archivo
@@ -89,9 +88,6 @@ public class Juego extends JFrame implements Runnable, KeyListener {
         // hago el applet de un tamaño 500,500
         setSize(800,600);
         
-        //Carga los sonidos
-        sdcSonidoChimpy = new SoundClip("aqui va un sonido");
-        sdcSonidoChimpy2 = new SoundClip("aqui va otro sonido");
         
         addKeyListener(this);
         
@@ -116,54 +112,25 @@ public class Juego extends JFrame implements Runnable, KeyListener {
         th.start ();
         
         // defino la imagen de Juan
-	URL urlImagenJuanLado = this.getClass().getResource("juanito.gif");
-        URL urlImagenJuanArriba = this.getClass().getResource("Juan_arriba.png");
-        URL urlImagenAlacranLado = this.getClass().getResource("alacran_lado.gif");
-        URL urlImagenAlacranArriba = this.getClass().getResource("alacran_arriba.gif");
-        URL urlImagenSerpiente = this.getClass().getResource("vibora.gif");
-        URL urlImagenSerpienteAtk = this.getClass().getResource("vibora_atk.gif");
-        URL urlImagenCactus = this.getClass().getResource("Cactus.png");
+	URL urlImagenJuanLado = this.getClass().getResource("recursos/juanito.gif");
+        URL urlImagenJuanArriba = this.getClass().getResource("recursos/Juan_arriba.png");
+        URL urlImagenAlacranLado = this.getClass().getResource("recursos/alacran_lado.gif");
+        URL urlImagenAlacranArriba = this.getClass().getResource("recursos/alacran_arriba.gif");
+        URL urlImagenSerpiente = this.getClass().getResource("recursos/vibora.gif");
+        URL urlImagenSerpienteAtk = this.getClass().getResource("recursos/vibora_atk.gif");
+        URL urlImagenCactus = this.getClass().getResource("recursos/Cactus.png");
         
         // se crea el objeto para Juan 
         /* int iPosX = (iMAXANCHO - 1) * getWidth() / iMAXANCHO;
            int iPosY = (iMAXALTO - 10) * getHeight() / iMAXALTO;   */
         int iPosX = 400;
         int iPosY = 450;
-            jugJuan = new Jugador(iPosX,iPosY, (getWidth() / iMAXANCHO)+50,
-                    getHeight() / iMAXALTO,
-                    Toolkit.getDefaultToolkit().getImage(urlImagenJuanLado), iVidas, iCantMunicion, iCantMoneda);
+            jugJuan = new Jugador(50,50,100,
+                    100,
+                    Toolkit.getDefaultToolkit().getImage(urlImagenJuanLado), iVidas,iVidas, iCantMunicion, iCantMoneda);
+   
         
-        /*// defino la imagen de la bala
-	URL urlImagenBala = this.getClass().getResource("aqui va la imagen de la bala");
-            // se crea el objeto para malo 
-           // iPosX = (iMAXANCHO - 1) * getWidth() / iMAXANCHO;
-            //iPosY = (iMAXALTO - 1) * getHeight() / iMAXALTO;        
-        iPosY = iPosY - 200;
-            objBala = new Objeto("Bala", iPosX,iPosY, getWidth() / iMAXANCHO,
-                    getHeight() / iMAXALTO,
-                    Toolkit.getDefaultToolkit().getImage(urlImagenBala));
-            
-	URL urlImagenPrincipal = this.getClass().getResource("ba.png");*/
-        
-        
-        // creo la lista de animales
-        lklAlacran = new LinkedList();
-        // genero un numero azar de 3 a 8
-        int iAzar = 5;
-        
-        // genero cada alacran y lo añado a la lista
-        for(int iA = 1 ; iA < 5 ; iA++){
-            for (int iI = 0; iI < iAzar; iI ++) {
-                iPosY = (getHeight() /iMAXALTO) * iA ;    
-                iPosX = (getWidth()/ iMAXANCHO) * (iI * 2) ;    
-                // se crea el objeto Fantasmita
-                Alacran alaAlacran = new Alacran(iPosX, iPosY, getWidth() / iMAXANCHO,
-                    getHeight() / iMAXALTO,
-                    Toolkit.getDefaultToolkit().getImage(urlImagenAlacranLado));
-                //Se agrega el fantasma a la lista
-                lklAlacran.add(alaAlacran);
-            }
-        }
+   
     }
     
     public static void main(String[] args){
@@ -237,22 +204,10 @@ public class Juego extends JFrame implements Runnable, KeyListener {
             //objBala.setX(iPosX);
             jugJuan.setY(iPosY);/////////////////////checar esto/////////////
         
-        //Borra la lista encadenada
-        lklAlacran.clear();
+     
         URL urlImagenPrincipal = this.getClass().getResource("ba.png");
          // genero cada juanito y lo añado a la lista
-        for(int iA = 1 ; iA < 5 ; iA++){
-            for (int iI = 0; iI < 5; iI ++) {
-                iPosY = (getHeight() /iMAXALTO) * iA ;    
-                iPosX = (getWidth()/ iMAXANCHO) * (iI * 2) ;    
-                // se crea el objeto Fantasmita
-                Alacran alaAlacran = new Alacran(iPosX, iPosY, getWidth() / iMAXANCHO,
-                    getHeight() / iMAXALTO,
-                    Toolkit.getDefaultToolkit().getImage(urlImagenPrincipal));
-                //Se agrega el fantasma a la lista
-                //lklMalos.add(basPrincipal);
-            }
-        }
+      
     }
 	
     /** 
@@ -294,68 +249,16 @@ public class Juego extends JFrame implements Runnable, KeyListener {
      * 
      */
     public void checaColision(){
-        //Checa que el paddle no se salga del frame
-        if(jugJuan.getX()<0){
-            jugJuan.setX(0);
-        }
-        if(jugJuan.getX() + jugJuan.getAncho() > getWidth()) { 
-            // se fija la posicion en limite
-            jugJuan.setX(getWidth() - jugJuan.getAncho());
-        }
-        
-        if(iVidas == 0){
-            
-            bPausa = true;
-        }            
+                
     }
     
     public void leeArchivo() throws IOException {
                                                           
-                BufferedReader fileIn;
-                try {
-                        fileIn = new BufferedReader(new FileReader(nombreArchivo));
-                } catch (FileNotFoundException e){
-                        File puntos = new File(nombreArchivo);
-                        PrintWriter fileOut = new PrintWriter(puntos);
-                        fileOut.println("100,demo");
-                        fileOut.close();
-                        fileIn = new BufferedReader(new FileReader(nombreArchivo));
-                }
-                String dato = fileIn.readLine();
-                jugJuan.setX(Integer.parseInt(dato));
-                dato = fileIn.readLine();
-                jugJuan.setY(Integer.parseInt(dato));
-                dato = fileIn.readLine();
-                for(int i=0; i<lklAlacran.size(); i++){
-                    lklAlacran.get(i).setX(Integer.parseInt(dato));
-                    dato = fileIn.readLine();
-                    lklAlacran.get(i).setY(Integer.parseInt(dato));
-                    dato = fileIn.readLine();
-                }
-                for(int i=0; i<lklMalos2.size();i++){
-                    lklMalos2.get(i).setX(Integer.parseInt(dato));
-                    dato = fileIn.readLine();
-                    lklMalos2.get(i).setY(Integer.parseInt(dato));
-                    dato = fileIn.readLine();
-                }
-                fileIn.close();
+               
     }
     
      public void grabaArchivo() throws IOException {
-                                                          
-                PrintWriter fileOut = new PrintWriter(new FileWriter(nombreArchivo));
-                fileOut.println(jugJuan.getX());
-                fileOut.println(jugJuan.getY());
-                for(int i=0; i<lklAlacran.size();i++){
-                    fileOut.println(lklAlacran.get(i).getX());
-                    fileOut.println(lklAlacran.get(i).getY());
-                }
-                for(int i=0; i<lklMalos2.size();i++){
-                    fileOut.println(lklMalos2.get(i).getX());
-                    fileOut.println(lklMalos2.get(i).getY());
-                }
-
-                fileOut.close();
+        
         }
 	
     /**
@@ -407,10 +310,7 @@ public class Juego extends JFrame implements Runnable, KeyListener {
             if (jugJuan != null) {
                 if(!bFin){
                     //Dibuja la imagen de principal en el Applet
-                    for (Alacran alaAlacran : lklAlacran) {
-                        //Dibuja la imagen de dumbo en el Applet
-                        alaAlacran.paint(graDibujo, this);
-                    }
+                  
                     //Pinta malo
                     jugJuan.paint(graDibujo, this);
                     
