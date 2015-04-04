@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import java.awt.Graphics;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -20,9 +21,11 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class PantallaSeleccion extends JFrame implements ActionListener, KeyListener, Runnable {
     
@@ -43,17 +46,19 @@ public class PantallaSeleccion extends JFrame implements ActionListener, KeyList
     public PantallaSeleccion(){
         super("Pantalla de Seleccion");
         setSize(600,600);
-        GridLayout grlLayout = new GridLayout(0,1);
+        JPanel pnlPanel = new JPanel();
+        pnlPanel.add(Box.createRigidArea(new Dimension(0,5)));
+        add(pnlPanel);
+        pnlPanel.setLayout(new BoxLayout(pnlPanel,BoxLayout.PAGE_AXIS));
         setResizable(false);
-        setLayout(grlLayout);
         JButton btn1= new JButton("Nueva Partida");
         JButton btn2= new JButton("Cargar Partida");
         btn1.setActionCommand("b1");
         btn2.setActionCommand("b2");
         btn1.addActionListener(this);
         btn2.addActionListener(this);
-        add(btn1);
-        add(btn2);
+        pnlPanel.add(btn1);
+        pnlPanel.add(btn2);
         addKeyListener(this);
         
     }
