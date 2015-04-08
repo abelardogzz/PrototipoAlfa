@@ -79,7 +79,7 @@ public class Juego extends JFrame implements Runnable, KeyListener {
     
     /** 
      * init
-     * 
+     * ssssss
      * Metodo sobrescrito de la clase <code>Applet</code>.<P>
      * En este metodo se inizializan las variables o se crean los objetos
      * a usarse en el <code>Applet</code> y se definen funcionalidades.
