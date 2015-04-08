@@ -31,6 +31,12 @@ import java.util.LinkedList;
 import java.applet.AudioClip;
 import java.net.URL;
 import java.applet.Applet;
+import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 
 /**
@@ -42,7 +48,7 @@ public class Nivel3 extends JFrame implements Runnable, KeyListener {
     private final int iMAXANCHO = 10; // maximo numero de personajes por ancho
     private final int iMAXALTO = 8;  // maxuimo numero de personajes por alto
     private Jugador jugJuan;
-    private Jefe jefAlacran;
+    private Jefe jefFinal;
     //private Alacran alaAlacranLado;
     private Alacran alaAlacranArriba;
     private Serpiente serSerpiente;
@@ -86,10 +92,10 @@ public class Nivel3 extends JFrame implements Runnable, KeyListener {
      * 
      */
     public Nivel3() {
+        super("Nivel 3");
         // hago el applet de un tamaño 500,500
         setSize(800,600);
-        
-        
+        setResizable(false);
         addKeyListener(this);
         
         iPuntos=0;
@@ -113,12 +119,9 @@ public class Nivel3 extends JFrame implements Runnable, KeyListener {
         th.start ();
         
         // defino la imagen de Juan
+        URL urlImagenCholo = this.getClass().getResource("recursos/cholo.gif");
+        URL urlImagenJuanLado = this.getClass().getResource("recursos/juanito.gif");
         URL urlImagenJuanArriba = this.getClass().getResource("recursos/Juan_arriba.png");
-        URL urlImagenAlacranLado = this.getClass().getResource("recursos/alacran_lado.gif");
-        URL urlImagenAlacranArriba = this.getClass().getResource("recursos/alacran_arriba.gif");
-        URL urlImagenSerpiente = this.getClass().getResource("recursos/vibora.gif");
-        URL urlImagenSerpienteAtk = this.getClass().getResource("recursos/vibora_atk.gif");
-        URL urlImagenCactus = this.getClass().getResource("recursos/Cactus.png");
         
         // se crea el objeto para Juan 
         /* int iPosX = (iMAXANCHO - 1) * getWidth() / iMAXANCHO;
@@ -127,30 +130,9 @@ public class Nivel3 extends JFrame implements Runnable, KeyListener {
         int iPosY = 450;
             jugJuan = new Jugador(50,50,100,
                     100,
-                    Toolkit.getDefaultToolkit().getImage(urlImagenAlacranArriba), iVidas,iVidas, iCantMunicion, iCantMoneda);
+                    Toolkit.getDefaultToolkit().getImage(urlImagenJuanLado), iVidas,iVidas, iCantMunicion, iCantMoneda);
             
-        URL urlImagenJuan0 = this.getClass().getResource("recursos/juanito0.png");
-        URL urlImagenJuan1 = this.getClass().getResource("recursos/juanito1.png");
-        URL urlImagenJuan2 = this.getClass().getResource("recursos/juanito2.png");
-        URL urlImagenJuan3 = this.getClass().getResource("recursos/juanito3.png");
-        URL urlImagenJuan4 = this.getClass().getResource("recursos/juanito4.png");
-        URL urlImagenJuan5 = this.getClass().getResource("recursos/juanito5.png");
             
-        aniJuan=new Animacion();
-        aniJuan.sumaCuadro(Toolkit.getDefaultToolkit().getImage(urlImagenJuan0), 100);
-        aniJuan.sumaCuadro(Toolkit.getDefaultToolkit().getImage(urlImagenJuan1), 100);
-        aniJuan.sumaCuadro(Toolkit.getDefaultToolkit().getImage(urlImagenJuan2), 100);
-        aniJuan.sumaCuadro(Toolkit.getDefaultToolkit().getImage(urlImagenJuan3), 100);
-        aniJuan.sumaCuadro(Toolkit.getDefaultToolkit().getImage(urlImagenJuan4), 100);
-        aniJuan.sumaCuadro(Toolkit.getDefaultToolkit().getImage(urlImagenJuan5), 100);
-        
-        //se hace la animacion para enemigos del nivel 3
-        URL urlImagenCholo0 = this.getClass().getResource("recursos/cholo0.png");
-        URL urlImagenCholo1 = this.getClass().getResource("recursos/cholo1.png");
-        
-        aniCholo = new Animacion();
-        aniCholo.sumaCuadro(Toolkit.getDefaultToolkit().getImage(urlImagenCholo0), 100);
-        aniCholo.sumaCuadro(Toolkit.getDefaultToolkit().getImage(urlImagenCholo1), 100);
     }
     
     public static void main(String[] args){
@@ -426,4 +408,5 @@ public class Nivel3 extends JFrame implements Runnable, KeyListener {
         }
         
     }
+
 }
