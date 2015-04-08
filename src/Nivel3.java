@@ -67,7 +67,8 @@ public class Nivel3 extends JFrame implements Runnable, KeyListener {
     long lbeforeTime; //long que me dira el tiempo del sistema
     private LinkedList <Alacran>lklAlacran; //Lista Encadenada de fantasmas
     private LinkedList <Monstruo>lklMalos2; //Lista Encadenada de fantasmas
-    Animacion aniAnima;
+    Animacion aniJuan;
+    Animacion aniCholo;
     /* objetos para manejar el buffer del Applet y este no parpadee */
     private Image    imaImagenApplet;   // Imagen a proyectar en Applet	
     private Graphics graGraficaApplet;  // Objeto grafico de la Image
@@ -94,7 +95,7 @@ public class Nivel3 extends JFrame implements Runnable, KeyListener {
         iPuntos=0;
         iDireccion = 0;
         iDirBala = 1;
-        iVidas= 4; /////////////////checar esto//////////////////////
+        iVidas= 3;
         iCantMunicion = 6;
         iCantMoneda = 0;
         bFin= false;
@@ -135,14 +136,21 @@ public class Nivel3 extends JFrame implements Runnable, KeyListener {
         URL urlImagenJuan4 = this.getClass().getResource("recursos/juanito4.png");
         URL urlImagenJuan5 = this.getClass().getResource("recursos/juanito5.png");
             
-        aniAnima=new Animacion();
-        aniAnima.sumaCuadro(Toolkit.getDefaultToolkit().getImage(urlImagenJuan0), 100);
-        aniAnima.sumaCuadro(Toolkit.getDefaultToolkit().getImage(urlImagenJuan1), 100);
-        aniAnima.sumaCuadro(Toolkit.getDefaultToolkit().getImage(urlImagenJuan2), 100);
-        aniAnima.sumaCuadro(Toolkit.getDefaultToolkit().getImage(urlImagenJuan3), 100);
-        aniAnima.sumaCuadro(Toolkit.getDefaultToolkit().getImage(urlImagenJuan4), 100);
-        aniAnima.sumaCuadro(Toolkit.getDefaultToolkit().getImage(urlImagenJuan5), 100);
+        aniJuan=new Animacion();
+        aniJuan.sumaCuadro(Toolkit.getDefaultToolkit().getImage(urlImagenJuan0), 100);
+        aniJuan.sumaCuadro(Toolkit.getDefaultToolkit().getImage(urlImagenJuan1), 100);
+        aniJuan.sumaCuadro(Toolkit.getDefaultToolkit().getImage(urlImagenJuan2), 100);
+        aniJuan.sumaCuadro(Toolkit.getDefaultToolkit().getImage(urlImagenJuan3), 100);
+        aniJuan.sumaCuadro(Toolkit.getDefaultToolkit().getImage(urlImagenJuan4), 100);
+        aniJuan.sumaCuadro(Toolkit.getDefaultToolkit().getImage(urlImagenJuan5), 100);
         
+        //se hace la animacion para enemigos del nivel 3
+        URL urlImagenCholo0 = this.getClass().getResource("recursos/cholo0.png");
+        URL urlImagenCholo1 = this.getClass().getResource("recursos/cholo1.png");
+        
+        aniCholo = new Animacion();
+        aniCholo.sumaCuadro(Toolkit.getDefaultToolkit().getImage(urlImagenCholo0), 100);
+        aniCholo.sumaCuadro(Toolkit.getDefaultToolkit().getImage(urlImagenCholo1), 100);
     }
     
     public static void main(String[] args){
@@ -218,9 +226,7 @@ public class Nivel3 extends JFrame implements Runnable, KeyListener {
             //objBala.setX(iPosX);
             jugJuan.setY(iPosY);/////////////////////checar esto/////////////
         
-     
-        URL urlImagenPrincipal = this.getClass().getResource("ba.png");
-         // genero cada juanito y lo añado a la lista
+
       
     }
 	
@@ -333,7 +339,7 @@ public class Nivel3 extends JFrame implements Runnable, KeyListener {
                   
                     //Pinta malo
                     jugJuan.paint(graDibujo,this);
-                    graDibujo.drawImage(aniAnima.getImagen(),50,50,this);
+                    graDibujo.drawImage(aniJuan.getImagen(),50,50,this);
                     graDibujo.setColor(Color.red);
                     graDibujo.setFont(new Font("Serif", Font.BOLD, 25));
                     graDibujo.drawString("Puntos: "+ iPuntos, 400 , 100);
