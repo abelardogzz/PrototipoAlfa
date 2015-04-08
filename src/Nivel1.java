@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 
@@ -28,11 +29,18 @@ public class Nivel1 extends JFrame implements ActionListener, KeyListener, Runna
         
          //Crea un nuevo objeto JFrameHolaMundo
         Nivel1 holaMundo = new Nivel1();
-        
-        
-        
         //Despliega la ventana en pantalla al hacerla visible
         holaMundo.setVisible(true);
+        
+        holaMundo.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //Despliega la ventana en pantalla al hacerla visible
+        holaMundo.setVisible(true);
+        
+        holaMundo.addWindowListener(new WindowAdapter() {
+          public void windowClosing(WindowEvent e) {
+              System.exit(0);
+          }
+     });
         
         
         
@@ -40,7 +48,7 @@ public class Nivel1 extends JFrame implements ActionListener, KeyListener, Runna
     
     public Nivel1(){
         super("Nivel 1");
-        setSize(600,600);
+        setSize(800,600);
         setResizable(false);
         setLayout(new FlowLayout());
         
@@ -49,6 +57,12 @@ public class Nivel1 extends JFrame implements ActionListener, KeyListener, Runna
         btn1.addActionListener(this);
         add(btn1);
         addKeyListener(this);
+        
+        this.addWindowListener(new WindowAdapter() {
+          public void windowClosing(WindowEvent e) {
+              System.exit(0);
+          }
+        });
         
     }
     
