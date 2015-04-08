@@ -25,7 +25,7 @@ public class Jugador {
     private int iVida; //La vida que tiene actualmente (si le pegan, disminuye)
     private int icantMunicion;
     private int icantMonedas;
-    private Arma armActual;
+    private String sArmActual; //arma actual del jugador
     
     /**
      * Jugador
@@ -51,8 +51,7 @@ public class Jugador {
         this.iVida=iVida;
         this.iVidaTotal=iVidaTotal;
         this.icantMonedas=icantMonedas;
-        armActual=new Arma();
-        armActual.setArma("revolver");
+        sArmActual="revolver"; //es la arma de default
         
     }
     
@@ -90,7 +89,31 @@ public class Jugador {
     public void reducirVida(int iDa) {
         this.iVida =this.iVida-iDa;
     }
-
+    
+    /**
+     * cambiarArma
+     * 
+     * Metodo que cambia el arma del jugador
+     * 
+     * @param sArma es el tipo de <code>arma</code> que ahora tendra el jugador.
+     * 
+     */
+    public void cambiarArma(String sArma) {
+        this.sArmActual=sArma;
+    }
+    
+    /**
+     * getArma
+     * 
+     * Metodo que obtiene el arma actual del jugador
+     * 
+     * 
+     * @return sArmActual es el arma actual del jugador
+     * 
+     */
+    public String cambiarArma() {
+        return this.sArmActual;
+    }
     /**
      * getX
      * 

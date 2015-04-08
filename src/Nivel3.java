@@ -56,7 +56,6 @@ public class Nivel3 extends JFrame implements Runnable, KeyListener {
     
     private Moneda objMoneda;
     //private Objeto objPowerUp;
-    private Arma armArma;
     //private Objeto objRestVida;
     //private Objeto objVidaExtra;
     private Image dbImage;    // Imagen a proyectar

@@ -1,3 +1,6 @@
+
+import java.awt.Image;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -8,22 +11,35 @@
  *
  * @author Lalo Serna
  */
-public class JugodeNaranja extends Object {
+public class JugodeNaranja extends Objeto {
     private boolean bJugoCuarto;
     private boolean bJugoMitad;
     private boolean bJugoCompleto;
     
-     /** 
+     /**
      * JugodeNaranja
      * 
-     * Metodo constructor de la clase <code>JugodeNaranja</code>.<P>
+     * Metodo constructor usado para crear el objeto de tipo jugo de naranja
+     * creando la animacion a partir de una imagen
+     * 
+     * @param iPosX es la <code>posicion en x</code> del jugo de naranja.
+     * @param iPosY es la <code>posicion en y</code> del jugo de naranja.
+     * @param iAncho es el <code>ancho</code> del jugo de naranja.
+     * @param iAlto es el <code>Largo</code> del jugo de naranja.
+     /*@param imaImagen es la <code>animacion</code> del jugo de naranja.
      * 
      */
-    public JugodeNaranja(){
+    public JugodeNaranja(int iPosX, int iPosY , int iAncho, int iAlto, Image imaImagen) {
+        this.sTipo = "jugo";
+        this.iPosX = iPosX;
+        this.iPosY = iPosY;
+        this.iAncho = iAncho;
+        this.iAlto = iAlto;
+        aniAnimacion=new Animacion();
+        aniAnimacion.sumaCuadro(imaImagen,100);
         bJugoCuarto=false;
         bJugoMitad=false;
         bJugoCompleto=false;
-      
     }
     
      /** 

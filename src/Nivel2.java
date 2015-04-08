@@ -44,7 +44,6 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
     
     private Moneda objMoneda;
     //private Objeto objPowerUp;
-    private Arma armArma;
     //private Objeto objRestVida;
     //private Objeto objVidaExtra;
     private Image dbImage;    // Imagen a proyectar

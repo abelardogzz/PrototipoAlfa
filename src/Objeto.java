@@ -21,36 +21,13 @@ public class Objeto {
     //colisiones/////
     //posiciones xy
     
-    private String sTipo;   //string del tipo de objeto
-    private int iPosX;  //posicion X del objeto
-    private int iPosY;  //posicion Y del objeto
-    private int iAncho; //ancho del objeto
-    private int iAlto; //largo del objeto
-    private Image imaImagen;	//imagen.
-    
-    
-    /**
-     * Objeto
-     * 
-     * Metodo constructor usado para crear el objeto animal
-     * creando el icono a partir de una imagen
-     * 
-     * @param iPosX es la <code>posicion en x</code> del objeto.
-     * @param iPosY es la <code>posicion en y</code> del objeto.
-     * @param iAncho es el <code>ancho</code> del objeto.
-     * @param iAlto es el <code>Largo</code> del objeto.
-     /*@param imaImagen es la <code>imagen</code> del objeto.
-     * 
-     */
-    public Objeto(String sTipo, int iPosX, int iPosY , int iAncho, int iAlto, Image imaImagen) {
-        this.sTipo = sTipo;
-        this.iPosX = iPosX;
-        this.iPosY = iPosY;
-        this.iAncho = iAncho;
-        this.iAlto = iAlto;
-        this.imaImagen = imaImagen;
-    }
-    
+    protected String sTipo;   //string del tipo de objeto
+    protected int iPosX;  //posicion X del objeto
+    protected int iPosY;  //posicion Y del objeto
+    protected int iAncho; //ancho del objeto
+    protected int iAlto; //largo del objeto
+    protected Animacion aniAnimacion;	//la animacion
+
     /**
      * setX
      * 
@@ -102,28 +79,17 @@ public class Objeto {
     /**
      * setImagen
      * 
-     * Metodo modificador usado para cambiar el icono de imagen del objeto
-     * tomandolo de un objeto imagen
+     * Metodo modificador usado para cambiar el icono de imagen del jugador
+     * tomandolo de un jugador imagen
      * 
-     * @param imaImagen es la <code>imagen</code> del objeto.
+     * @param imaImagen es la <code>imagen</code> del jugador.
      * 
      */
     public void setImagen(Image imaImagen) {
-        this.imaImagen = imaImagen;
+        aniAnimacion.quitaCuadros();
+        aniAnimacion.sumaCuadro(imaImagen,100);
     }
-
-    /**
-     * getImagen
-     * 
-     * Metodo de acceso que regresa la imagen que representa el icono del objeto
-     * 
-     * @return la imagen a partide del <code>icono</code> del objeto.
-     * 
-     */
-    public Image getImagen() {
-        return imaImagen;
-    }
-    
+  
     /**
      * getAncho
      * 
