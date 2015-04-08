@@ -40,7 +40,7 @@ public class Nivel1 extends JFrame implements ActionListener, KeyListener, Runna
           public void windowClosing(WindowEvent e) {
               System.exit(0);
           }
-     });
+        });
         
         
         
@@ -77,9 +77,7 @@ public class Nivel1 extends JFrame implements ActionListener, KeyListener, Runna
 
             Nivel2 HolaMundo2 = new Nivel2();
             HolaMundo2.setVisible(true);
-            HolaMundo2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            this.dispatchEvent(new WindowEvent(this, 
-                                                WindowEvent.WINDOW_CLOSING));
+            this.dispose();
     }
 
     @Override

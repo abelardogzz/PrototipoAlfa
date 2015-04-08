@@ -10,6 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import static java.awt.image.ImageObserver.HEIGHT;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.io.IOException;
@@ -127,6 +129,14 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
             jugJuan = new Jugador(50,50,100,
                     100,
                     Toolkit.getDefaultToolkit().getImage(urlImagenJuanLado), iVidas,iVidas, iCantMunicion, iCantMoneda);
+        
+        //Este metodo se utiliza para que se cierre la ventana una vez que se est
+         //coriendo el juego
+        this.addWindowListener(new WindowAdapter() {
+          public void windowClosing(WindowEvent e) {
+              System.exit(0);
+          }
+        });
 
         
     }
