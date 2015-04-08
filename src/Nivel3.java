@@ -37,7 +37,7 @@ import java.applet.Applet;
  *
  * @author AntonioM
  */
-public class Juego extends JFrame implements Runnable, KeyListener {
+public class Nivel3 extends JFrame implements Runnable, KeyListener {
 
     private final int iMAXANCHO = 10; // maximo numero de personajes por ancho
     private final int iMAXALTO = 8;  // maxuimo numero de personajes por alto
@@ -84,7 +84,7 @@ public class Juego extends JFrame implements Runnable, KeyListener {
      * a usarse en el <code>Applet</code> y se definen funcionalidades.
      * 
      */
-    public Juego() {
+    public Nivel3() {
         // hago el applet de un tamaño 500,500
         setSize(800,600);
         
@@ -143,7 +143,6 @@ public class Juego extends JFrame implements Runnable, KeyListener {
         aniAnima.sumaCuadro(Toolkit.getDefaultToolkit().getImage(urlImagenJuan4), 100);
         aniAnima.sumaCuadro(Toolkit.getDefaultToolkit().getImage(urlImagenJuan5), 100);
         
-   
     }
     
     public static void main(String[] args){
