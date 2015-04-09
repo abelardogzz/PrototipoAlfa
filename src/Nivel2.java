@@ -34,16 +34,13 @@ import javax.swing.JPanel;
  * @author Abelardo
  */
 public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListener{
-    
-    private final int iMAXANCHO = 10; // maximo numero de personajes por ancho
-    private final int iMAXALTO = 8;  // maxuimo numero de personajes por alto
+
     private Jugador jugJuan;
     private Jefe jefAlacran;
     //private Alacran alaAlacranLado;
     private Alacran alaAlacranArriba;
     private Serpiente serSerpiente;
     private Cactus catCactus;
-    
     private Moneda objMoneda;
     //private Objeto objPowerUp;
     //private Objeto objRestVida;
@@ -63,12 +60,9 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
     long lbeforeTime; //long que me dira el tiempo del sistema
     private LinkedList <Alacran>lklAlacran; //Lista Encadenada de fantasmas
     private LinkedList <Monstruo>lklMalos2; //Lista Encadenada de fantasmas
-    
     /* objetos para manejar el buffer del Applet y este no parpadee */
     private Image    imaImagenApplet;   // Imagen a proyectar en Applet	
     private Graphics graGraficaApplet;  // Objeto grafico de la Image
-
-    
     private Vector vec; //Objeto vector para guardar los dats
     private String nombreArchivo; //Nombre del archivo
     
@@ -77,16 +71,6 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
         setSize(800,600);
         setResizable(false);
         setLayout(new BorderLayout());
-        /*
-        JButton btn1= new JButton("Boton Prueba");
-        btn1.addActionListener(this);
-       
-        JPanel jpn1 = new JPanel();
-        jpn1.add(btn1);
-        
-        this.add(jpn1,BorderLayout.WEST);
-        jpn1.setOpaque(false);
-        */
         addKeyListener(this);
         
         iPuntos=0;

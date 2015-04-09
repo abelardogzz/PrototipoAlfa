@@ -138,6 +138,21 @@ public class Objeto {
             return sTipo;
     }
     
+     /**
+     * paint
+     * 
+     * Metodo para pintar el objeto
+     * 
+     * @param graGrafico   objeto de la clase <code>Graphics</code> para graficar
+     * @param imoObserver  objeto de la clase <code>ImageObserver</code> es el 
+     *    Applet donde se pintara
+     * 
+     */
+    public void paint(Graphics graGrafico, ImageObserver imoObserver) {
+        graGrafico.drawImage(aniAnimacion.getImagen(), this.getX(), this.getY(),imoObserver);
+    }
+    
+    
     /**
      * equals
      * 

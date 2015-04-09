@@ -241,10 +241,10 @@ public class Jugador {
     /**
      * paint
      * 
-     * Metodo para pintar el animal
+     * Metodo para pintar el jugador
      * 
-     * @param graGrafico   jugador de la clase <code>Graphics</code> para graficar
-     * @param imoObserver  jugador de la clase <code>ImageObserver</code> es el 
+     * @param graGrafico   objeto de la clase <code>Graphics</code> para graficar
+     * @param imoObserver  objeto de la clase <code>ImageObserver</code> es el 
      *    Applet donde se pintara
      * 
      */
