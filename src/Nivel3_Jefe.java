@@ -31,14 +31,14 @@ import javax.swing.JOptionPane;
  */
 public class Nivel3_Jefe extends JFrame implements ActionListener, KeyListener, Runnable {
     
-    private Jugador jugJuan;
-    private Jefe jefFinal;
-    private Moneda objMoneda;
-    private Objeto objRestVida;
-    private Objeto objVidaExtra;
+    private Jugador jugJuan;    //objeto Jugador
+    private Jefe jefFinal;  //objeto Jefe
+    private Moneda objMoneda;   //objeto Moneda
+    private Objeto objRestVida; //objeto Objeto
+    private Objeto objVidaExtra;    //objeto Objeto
     private Image dbImage;    // Imagen a proyectar
-    private int iCantMunicion;
-    private int iCantMoneda;
+    private int iCantMunicion;  //cantidad de municiones
+    private int iCantMoneda;    //cantidad de monedas
     private int iVidas; // Vidas del juego
     private boolean bFin;
     private boolean bPausa;
@@ -53,9 +53,17 @@ public class Nivel3_Jefe extends JFrame implements ActionListener, KeyListener, 
     private String nombreArchivo; //Nombre del archivo
     public static boolean N2=false;
     
+    /**
+     * main
+     * 
+     * Metodo usado para crear el nivel jefe del juego
+     * y haciendolo visible al usaurio.
+     * 
+     */
+    
     public static void main(String[] args){ 
         
-         //Crea un nuevo objeto nvlNivel1
+         //Crea un nuevo objeto nvlNivel3_Jefe
         Nivel3_Jefe nvlNivel3Jefe = new Nivel3_Jefe();
         //Despliega la ventana en pantalla al hacerla visible
         nvlNivel3Jefe.setVisible(true);
@@ -72,6 +80,14 @@ public class Nivel3_Jefe extends JFrame implements ActionListener, KeyListener, 
         });
  
     }
+    
+    /**
+     * Nivel3_Jefe
+     * 
+     * Metodo constructor usado para crear el nivel jefe del juego
+     * con sprites y escenarios.
+     * 
+     */
     
     public Nivel3_Jefe(){
         //Aqui se establece lo basico del JFrame
@@ -137,6 +153,13 @@ public class Nivel3_Jefe extends JFrame implements ActionListener, KeyListener, 
        // System.out.println("Funciona Hola Lalo");
     }
 
+    /**
+     * run
+     * 
+     * Metodo usado para correr el nivel jefe del juego.
+     * 
+     * 
+     */
     
     public void run () {
         lbeforeTime = System.currentTimeMillis();
@@ -228,17 +251,18 @@ public class Nivel3_Jefe extends JFrame implements ActionListener, KeyListener, 
                 
                     //Dibuja la imagen de principal en el Applet
                   
-                    //Pinta malo
+                    //Pinta a Juan y al jefe final
                     jugJuan.paint(graDibujo,this);
                     jefFinal.paint(graDibujo,this);
                     
-                    //graDibujo.drawImage(aniAnima.getImagen(),50,50,this);
+                    //se dibuja la informacion del nivel
                     graDibujo.setColor(Color.WHITE);
                     graDibujo.setFont(new Font("Serif", Font.BOLD, 25));
                     graDibujo.drawString("Nivel 3 - Jefe ", 5 , 54);
                     graDibujo.setFont(new Font("Serif", Font.BOLD, 18));
                     graDibujo.drawString("Balas", 5 , 124);
                     
+                    //se pintan las vidas
                     for (Powerup pwerPower : lklVidas) {
                         pwerPower.paint(graDibujo, this);
                     }
@@ -261,6 +285,13 @@ public class Nivel3_Jefe extends JFrame implements ActionListener, KeyListener, 
         
     }
 
+    /**
+     * keyReleased
+     * 
+     * Metodo usado para salir del juego una vez terminado.
+     * 
+     * 
+     */
     
     public void keyReleased(KeyEvent ke) {
         if(ke.getKeyCode() == KeyEvent.VK_RIGHT){

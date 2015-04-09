@@ -19,29 +19,20 @@ import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author Abelardo
- */
 public class Nivel3 extends JFrame implements ActionListener, KeyListener, Runnable {
     
-    private Jugador jugJuan;
-    private Cholo chlCholo;
-    private Cholo chlCholo2;
-    private Moneda objMoneda;
-    private Objeto objRestVida;
-    private Objeto objVidaExtra;
+    private Jugador jugJuan;    //objeto Jugador
+    private Cholo chlCholo;     //objeto Cholo
+    private Cholo chlCholo2;    //objeto Cholo
+    private Moneda objMoneda;   //objeto Moneda
+    private Objeto objRestVida;     //objeto Objeto
+    private Objeto objVidaExtra;    //objeto Objeto
     private Image dbImage;    // Imagen a proyectar
-    private int iCantMunicion;
-    private int iCantMoneda;
+    private int iCantMunicion;  //cantidad de municiones
+    private int iCantMoneda;    //cantidad de monedas
     private int iVidas; // Vidas del juego
-    private Powerup pw;
+    private Powerup pw;     //objeto Powerup
     private boolean bFin;
     private boolean bPausa;
     private boolean bCont;
@@ -74,6 +65,14 @@ public class Nivel3 extends JFrame implements ActionListener, KeyListener, Runna
         });
  
     }
+    
+    /**
+     * Nivel3
+     * 
+     * Metodo constructor usado para crear el nivel del juego
+     * con sprites y escenarios.
+     * 
+     */
     
     public Nivel3(){
         //Aqui se establece lo basico del JFrame
@@ -236,7 +235,7 @@ public class Nivel3 extends JFrame implements ActionListener, KeyListener, Runna
                 
                     //Dibuja la imagen de principal en el Applet
                   
-                    //Pinta malo
+                    //Pinta a Juan, los cholos y las municiones
                     jugJuan.paint(graDibujo,this);
                     chlCholo.paint(graDibujo,this);
                     chlCholo2.paint(graDibujo,this);
@@ -249,6 +248,7 @@ public class Nivel3 extends JFrame implements ActionListener, KeyListener, Runna
                     graDibujo.setFont(new Font("Serif", Font.BOLD, 18));
                     graDibujo.drawString("Balas", 5 , 124);
                     
+                    //se pintan las vidas
                     for (Powerup pwerPower : lklVidas) {
                         pwerPower.paint(graDibujo, this);
                     }
@@ -271,6 +271,13 @@ public class Nivel3 extends JFrame implements ActionListener, KeyListener, Runna
         
     }
 
+    /**
+     * keyReleased
+     * 
+     * Metodo usado para cambiar de nivel oprimiendo la tecla indicada.
+     * 
+     * 
+     */
     
     public void keyReleased(KeyEvent ke) {
         if(ke.getKeyCode() == KeyEvent.VK_RIGHT){
