@@ -39,7 +39,7 @@ public class Nivel1 extends JFrame implements ActionListener, KeyListener, Runna
     private Serpiente serSerpiente;
     private Cactus catCactus,catCactusVis,catCactusVis2;
     private Moneda objMoneda;
-    private Powerup pwrChile,pw;
+    private Powerup pwrChile,pw,pw1;
     private Objeto objRestVida;
     private Objeto objVidaExtra;
     private Image dbImage;    // Imagen a proyectar
@@ -112,11 +112,11 @@ public class Nivel1 extends JFrame implements ActionListener, KeyListener, Runna
         URL urlImagenCactusVis = this.getClass().getResource("recursos/Visnaga.png");
         URL urlImagenVida = this.getClass().getResource("recursos/heart.png");
         URL urlImagenChile = this.getClass().getResource("recursos/Chile.png");
-        
+        URL urlImagenRevolver = this.getClass().getResource("recursos/Revolver6.png");
         
         //A continuacion se ponen los objetos de esta pantalla
-        jugJuan = new Jugador(0,420,100,
-                    100,
+        jugJuan = new Jugador(0,420,50,
+                    50,
                     Toolkit.getDefaultToolkit().getImage(urlImagenJuanLado), iVidas,
                 iVidas, iCantMunicion, iCantMoneda);
         
@@ -137,6 +137,9 @@ public class Nivel1 extends JFrame implements ActionListener, KeyListener, Runna
         
         pwrChile = new Powerup(378,282,50,50,
                 Toolkit.getDefaultToolkit().getImage(urlImagenChile));
+        
+        pw = new Powerup(62,98,100,100,
+                Toolkit.getDefaultToolkit().getImage(urlImagenRevolver));
         
         lklVidas = new LinkedList();
         
@@ -262,6 +265,7 @@ public class Nivel1 extends JFrame implements ActionListener, KeyListener, Runna
                     catCactusVis.paint(graDibujo,this);
                     catCactusVis2.paint(graDibujo,this);
                     pwrChile.paint(graDibujo,this);
+                    pw.paint(graDibujo,this);
                     //graDibujo.drawImage(aniAnima.getImagen(),50,50,this);
                     graDibujo.setColor(Color.WHITE);
                     graDibujo.setFont(new Font("Serif", Font.BOLD, 25));

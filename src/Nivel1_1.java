@@ -114,18 +114,19 @@ public class Nivel1_1 extends JFrame implements ActionListener, KeyListener, Run
         URL urlImagenCactusVis = this.getClass().getResource("recursos/Visnaga.png");
         URL urlImagenVida = this.getClass().getResource("recursos/heart.png");
         URL urlImagenChile = this.getClass().getResource("recursos/Chile.png");
-        
+        URL urlImagenRevolver = this.getClass().getResource("recursos/Revolver6.png");
         
         //A continuacion se ponen los objetos de esta pantalla
-        jugJuan = new Jugador(0,420,100,
-                    100,
+        jugJuan = new Jugador(382,420,150,
+                    150,
                     Toolkit.getDefaultToolkit().getImage(urlImagenJuanArriba), iVidas,
                 iVidas, iCantMunicion, iCantMoneda);
         
         alaAlacranLado = new Alacran(381,480,65,50,
                 Toolkit.getDefaultToolkit().getImage(urlImagenAlacranArriba));
         
-      
+        pw = new Powerup(62,98,100,100,
+                Toolkit.getDefaultToolkit().getImage(urlImagenRevolver));
         
         lklVidas = new LinkedList();
         lklAlacranes = new LinkedList();
@@ -139,7 +140,7 @@ public class Nivel1_1 extends JFrame implements ActionListener, KeyListener, Run
         //Los alacranes
         for (int i=0;i<6;i++){
            Random randR = new Random();
-           Alacran alaAlacranLado = new Alacran((i+1)*65, randR.nextInt((500 - 65) + 1) + 65,55,70,
+           Alacran alaAlacranLado = new Alacran((i+3)*65, randR.nextInt((200 - 65) + 1) + 65,55,70,
                 Toolkit.getDefaultToolkit().getImage(urlImagenAlacranArriba));
            lklAlacranes.add(alaAlacranLado);
         
@@ -256,6 +257,7 @@ public class Nivel1_1 extends JFrame implements ActionListener, KeyListener, Run
                   
                     //Pinta malo
                     jugJuan.paint(graDibujo,this);
+                    pw.paint(graDibujo,this);
                     //graDibujo.drawImage(aniAnima.getImagen(),50,50,this);
                     graDibujo.setColor(Color.WHITE);
                     graDibujo.setFont(new Font("Serif", Font.BOLD, 25));
