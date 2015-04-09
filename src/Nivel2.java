@@ -34,13 +34,16 @@ import javax.swing.JPanel;
  * @author Abelardo
  */
 public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListener{
-
+    
+    private final int iMAXANCHO = 10; // maximo numero de personajes por ancho
+    private final int iMAXALTO = 8;  // maxuimo numero de personajes por alto
     private Jugador jugJuan;
     private Jefe jefAlacran;
     //private Alacran alaAlacranLado;
     private Alacran alaAlacranArriba;
     private Serpiente serSerpiente;
     private Cactus catCactus;
+    
     private Moneda objMoneda;
     //private Objeto objPowerUp;
     //private Objeto objRestVida;
@@ -58,11 +61,15 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
     private boolean bCont;
     private boolean bP2;
     long lbeforeTime; //long que me dira el tiempo del sistema
-    private LinkedList <Alacran>lklAlacran; //Lista Encadenada de fantasmas
-    private LinkedList <Monstruo>lklMalos2; //Lista Encadenada de fantasmas
+    private LinkedList <Serpiente>lklSerpiente; //Lista Encadenada de fantasmas
+    private LinkedList <Lobo>lklLobo; //Lista Encadenada de fantasmas 
+    private LinkedList <Powerup>lklVidas; //Lista Encadenada de fantasmas 
+    
     /* objetos para manejar el buffer del Applet y este no parpadee */
     private Image    imaImagenApplet;   // Imagen a proyectar en Applet	
     private Graphics graGraficaApplet;  // Objeto grafico de la Image
+
+    
     private Vector vec; //Objeto vector para guardar los dats
     private String nombreArchivo; //Nombre del archivo
     
@@ -71,6 +78,16 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
         setSize(800,600);
         setResizable(false);
         setLayout(new BorderLayout());
+        /*
+        JButton btn1= new JButton("Boton Prueba");
+        btn1.addActionListener(this);
+       
+        JPanel jpn1 = new JPanel();
+        jpn1.add(btn1);
+        
+        this.add(jpn1,BorderLayout.WEST);
+        jpn1.setOpaque(false);
+        */
         addKeyListener(this);
         
         iPuntos=0;
@@ -100,19 +117,41 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
 	URL urlImagenJuanLado = this.getClass().getResource("recursos/juanito.gif");
         URL urlImagenJuanArriba = this.getClass().getResource("recursos/Juan_arriba.png");
         URL urlImagenAlacranLado = this.getClass().getResource("recursos/alacran_lado.gif");
-        URL urlImagenAlacranArriba = this.getClass().getResource("recursos/alacran_arriba.gif");
+        URL urlImagenLobo = this.getClass().getResource("recursos/lobo_derecha.gif");
         URL urlImagenSerpiente = this.getClass().getResource("recursos/vibora.gif");
         URL urlImagenSerpienteAtk = this.getClass().getResource("recursos/vibora_atk.gif");
         URL urlImagenCactus = this.getClass().getResource("recursos/Cactus.png");
+        URL urlImagenVida = this.getClass().getResource("recursos/heart.png");
         
         // se crea el objeto para Juan 
         /* int iPosX = (iMAXANCHO - 1) * getWidth() / iMAXANCHO;
            int iPosY = (iMAXALTO - 10) * getHeight() / iMAXALTO;   */
         int iPosX = 400;
         int iPosY = 450;
-            jugJuan = new Jugador(50,50,100,
-                    100,
+            jugJuan = new Jugador(0,440,100,100,
                     Toolkit.getDefaultToolkit().getImage(urlImagenJuanLado), iVidas,iVidas, iCantMunicion, iCantMoneda);
+        
+        lklSerpiente = new LinkedList();
+        lklSerpiente.add(new Serpiente(381,490,50,50,Toolkit.getDefaultToolkit().getImage(urlImagenSerpiente)));
+        lklSerpiente.add((new Serpiente(381,490,50,50,Toolkit.getDefaultToolkit().getImage(urlImagenSerpiente))));
+        lklSerpiente.add((new Serpiente(704,490,50,50,Toolkit.getDefaultToolkit().getImage(urlImagenSerpiente))));
+        //lklSerpiente.add((new Serpiente(650,500,50,50,Toolkit.getDefaultToolkit().getImage(urlImagenSerpiente))));
+        
+        lklLobo = new LinkedList();
+        lklLobo.add(new Lobo(218,490,110,50,Toolkit.getDefaultToolkit().getImage(urlImagenLobo)));
+        lklLobo.add(new Lobo(500,490,110,50,Toolkit.getDefaultToolkit().getImage(urlImagenLobo)));
+        //lklLobo.add(new Lobo(704,430,110,50,Toolkit.getDefaultToolkit().getImage(urlImagenLobo)));
+        
+        lklVidas = new LinkedList();
+        
+        //Las vidas del jugador
+        for (int i=0;i<4;i++){
+            Powerup pwrVida = new Powerup(5+i*50,64,50,50,
+                Toolkit.getDefaultToolkit().getImage(urlImagenVida));
+            lklVidas.add(pwrVida);
+        }
+        
+        
         
         //Este metodo se utiliza para que se cierre la ventana una vez que se est
          //coriendo el juego
@@ -199,12 +238,12 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
 		graGraficaApplet.setColor (getBackground ());
 		graGraficaApplet.fillRect (0, 0, this.getSize().width, this.getSize().height);
         
-        /*Actualiza la imagen de fondo.
-        URL urlImagenFondo = this.getClass().getResource("BB_background2.png");
+        //Actualiza la imagen de fondo.
+        URL urlImagenFondo = this.getClass().getResource("recursos/Fondo2_modificado.png");
         Image imaImagenFondo = Toolkit.getDefaultToolkit().getImage(urlImagenFondo);
         graGraficaApplet.drawImage(imaImagenFondo, 0, 0, getWidth(), getHeight(), this);
         
-        */
+        
         // Actualiza el Foreground.
         graGraficaApplet.setColor (getForeground());
         paint1(graGraficaApplet);
@@ -233,9 +272,23 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
                     //Pinta malo
                     jugJuan.paint(graDibujo,this);
                     //graDibujo.drawImage(aniAnima.getImagen(),50,50,this);
-                    graDibujo.setColor(Color.black);
+                    graDibujo.setColor(Color.WHITE);
                     graDibujo.setFont(new Font("Serif", Font.BOLD, 25));
-                    graDibujo.drawString("Nivel 2 ", 400 , 100);
+                    graDibujo.drawString("Nivel 2 ", 5 , 54);
+                    graDibujo.setFont(new Font("Serif", Font.BOLD, 18));
+                    graDibujo.drawString("Balas", 5 , 124);
+                    
+                    for (Serpiente ser1 : lklSerpiente) {
+                        //Dibuja la imagen de dumbo en el Applet
+                        ser1.paint(graDibujo, this);
+                    }
+                    for (Lobo lob1 : lklLobo) {
+                        //Dibuja la imagen de dumbo en el Applet
+                        lob1.paint(graDibujo, this);
+                    }
+                    for (Powerup pwerPower : lklVidas) {
+                        pwerPower.paint(graDibujo, this);
+                    }
              
             } // sino se ha cargado se dibuja un mensaje 
             else {
