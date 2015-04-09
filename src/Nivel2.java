@@ -43,7 +43,7 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
     private Alacran alaAlacranArriba;
     private Serpiente serSerpiente;
     private Cactus catCactus;
-    
+    private Powerup pw;
     private Moneda objMoneda;
     //private Objeto objPowerUp;
     //private Objeto objRestVida;
@@ -122,6 +122,7 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
         URL urlImagenSerpienteAtk = this.getClass().getResource("recursos/vibora_atk.gif");
         URL urlImagenCactus = this.getClass().getResource("recursos/Cactus.png");
         URL urlImagenVida = this.getClass().getResource("recursos/heart.png");
+        URL urlImagenRevolver = this.getClass().getResource("recursos/Revolver6.png");
         
         // se crea el objeto para Juan 
         /* int iPosX = (iMAXANCHO - 1) * getWidth() / iMAXANCHO;
@@ -141,6 +142,9 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
         lklLobo.add(new Lobo(218,490,110,50,Toolkit.getDefaultToolkit().getImage(urlImagenLobo)));
         lklLobo.add(new Lobo(500,490,110,50,Toolkit.getDefaultToolkit().getImage(urlImagenLobo)));
         //lklLobo.add(new Lobo(704,430,110,50,Toolkit.getDefaultToolkit().getImage(urlImagenLobo)));
+        
+        pw = new Powerup(62,98,100,100,
+                Toolkit.getDefaultToolkit().getImage(urlImagenRevolver));
         
         lklVidas = new LinkedList();
         
@@ -278,6 +282,8 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
                     graDibujo.setFont(new Font("Serif", Font.BOLD, 18));
                     graDibujo.drawString("Balas", 5 , 124);
                     
+                    pw.paint(graDibujo,this);
+                    
                     for (Serpiente ser1 : lklSerpiente) {
                         //Dibuja la imagen de dumbo en el Applet
                         ser1.paint(graDibujo, this);
@@ -316,8 +322,9 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
     
     public void keyReleased(KeyEvent ke) {
         if(ke.getKeyCode() == KeyEvent.VK_RIGHT){
-            
-            bP2=true;
+            Nivel2_1 nvlNivel = new Nivel2_1();
+            nvlNivel.setVisible(true);
+            this.dispose();
         }
     }
     
