@@ -265,7 +265,7 @@ public class Nivel3_Jefe extends JFrame implements ActionListener, KeyListener, 
     public void keyReleased(KeyEvent ke) {
         if(ke.getKeyCode() == KeyEvent.VK_RIGHT){
             
-            bP2=true;
+            System.exit(0);
         }
     }
     
