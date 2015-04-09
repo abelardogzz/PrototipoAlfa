@@ -13,12 +13,19 @@ import javax.swing.JFrame;
 import java.awt.Graphics;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.net.URL;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
@@ -44,7 +51,15 @@ public class PantallaBienvenida extends JFrame implements ActionListener, KeyLis
         setResizable(false);
         setLayout(new FlowLayout());
         JLabel jLbl=new JLabel("El Misterio del Burro");
-        JButton btn1= new JButton("Iniciar");
+        
+        URL urlTablaInicio = this.getClass().getResource("recursos/wood1.png");
+        
+        //JButton btn1= new JButton();
+        
+        ImageIcon imgclientes = new ImageIcon("recursos/wood1.png");
+ 	JButton btn1=new JButton(imgclientes);
+        btn1.setText("Inicio");
+        btn1.setPreferredSize(new Dimension(630,110));
         btn1.setActionCommand("b1");
         btn1.addActionListener(this);
         this.add(jLbl);
