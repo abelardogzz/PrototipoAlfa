@@ -1,3 +1,12 @@
+/**
+ *Nivel2_Jefe
+ * 
+ *Se encargara de modelar los objetos de la fase final del segundo nivel
+ *del juego "El Misterio del Burro", donde se mostrara el jefe de nivel 
+ * 
+ * @author AbelardoGzz, LuisF, EduardoS
+ * 
+ */
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -22,27 +31,15 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author Abelardo
- */
 public class Nivel2_Jefe extends JFrame implements Runnable,ActionListener,KeyListener{
     
     private final int iMAXANCHO = 10; // maximo numero de personajes por ancho
     private final int iMAXALTO = 8;  // maxuimo numero de personajes por alto
-    private Jugador jugJuan;
-    private Jefe jefTornado;
-    //private Alacran alaAlacranLado;
+    private Jugador jugJuan; //Jugador princiapl
+    private Jefe jefTornado; //Jefe del nivel 2
     private Alacran alaAlacranArriba;
-    private Serpiente serSerpiente;
-    private Cactus catCactus;
-    private Powerup pw;
+    private Serpiente serSerpiente;// Serpiente enemiga
+    private Powerup pw;// Imagen del revolver
     private Moneda objMoneda;
     //private Objeto objPowerUp;
     //private Objeto objRestVida;
@@ -73,22 +70,14 @@ public class Nivel2_Jefe extends JFrame implements Runnable,ActionListener,KeyLi
     private String nombreArchivo; //Nombre del archivo
     
     public Nivel2_Jefe(){
+        //Componentes principales de la ventana JFrame
         super("Nivel 2 Jefe ");
         setSize(800,600);
         setResizable(false);
         setLayout(new BorderLayout());
-        /*
-        JButton btn1= new JButton("Boton Prueba");
-        btn1.addActionListener(this);
-       
-        JPanel jpn1 = new JPanel();
-        jpn1.add(btn1);
         
-        this.add(jpn1,BorderLayout.WEST);
-        jpn1.setOpaque(false);
-        */
         addKeyListener(this);
-        
+        //Variables de funcionalidad
         iPuntos=0;
         iDireccion = 0;
         iDirBala = 1;
@@ -112,7 +101,7 @@ public class Nivel2_Jefe extends JFrame implements Runnable,ActionListener,KeyLi
         th.start ();
         */
         
-        // defino la imagen de Juan
+        // Definicion de URLs para conseguir las rutas de las imagenes
 	URL urlImagenJuanLado = this.getClass().getResource("recursos/juanito.gif");
         URL urlImagenJuanArriba = this.getClass().getResource("recursos/Juan_arriba.png");
         URL urlImagenAlacranArriba = this.getClass().getResource("recursos/alacran_arriba.gif");
@@ -123,23 +112,22 @@ public class Nivel2_Jefe extends JFrame implements Runnable,ActionListener,KeyLi
         URL urlImagenVida = this.getClass().getResource("recursos/heart.png");
         URL urlImagenRevolver = this.getClass().getResource("recursos/Revolver6.png");
         
-        // se crea el objeto para Juan 
-        /* int iPosX = (iMAXANCHO - 1) * getWidth() / iMAXANCHO;
-           int iPosY = (iMAXALTO - 10) * getHeight() / iMAXALTO;   */
+        // se crea el objeto para Juan con sus parametros
         int iPosX = 400;
         int iPosY = 450;
             jugJuan = new Jugador(0,440,100,100,
                     Toolkit.getDefaultToolkit().getImage(urlImagenJuanLado), iVidas,iVidas, iCantMunicion, iCantMoneda);
         
         
-        
+        //Crea el objeto Jefe con la imagen del tornado
         jefTornado = new Jefe(300,50,300,600,Toolkit.getDefaultToolkit().getImage(urlImagenTornado),2);
         
+        //Agrega a imagen del revolver en su respectiva posicion
         pw = new Powerup(62,98,100,100,
                 Toolkit.getDefaultToolkit().getImage(urlImagenRevolver));
         
+        //Crea la Lista de Vida y la llena
         lklVidas = new LinkedList();
-        //Las vidas del jugador
         for (int i=0;i<4;i++){
             Powerup pwrVida = new Powerup(5+i*50,64,50,50,
                 Toolkit.getDefaultToolkit().getImage(urlImagenVida));
@@ -262,20 +250,20 @@ public class Nivel2_Jefe extends JFrame implements Runnable,ActionListener,KeyLi
         graDibujo.fillRect(0, 0, WIDTH, HEIGHT);
             if (jugJuan != null) {
                 
-                    //Dibuja la imagen de principal en el Applet
-                  
-                    //Pinta malo
+                    //Pinta al personaje principal donde corresponde
                     jugJuan.paint(graDibujo,this);
-                    //graDibujo.drawImage(aniAnima.getImagen(),50,50,this);
+                    //Despliega los letreros necesarios para identificar
                     graDibujo.setColor(Color.WHITE);
                     graDibujo.setFont(new Font("Serif", Font.BOLD, 25));
                     graDibujo.drawString("Nivel 2 Jefe", 5 , 54);
                     graDibujo.setFont(new Font("Serif", Font.BOLD, 18));
                     graDibujo.drawString("Balas", 5 , 124);
                     
+                    //Pinta el revolver con las balas restantes
                     pw.paint(graDibujo,this);
+                    //Pinta el tornado en donde le corresponde
                     jefTornado.paint(graDibujo,this);
-                    
+                    //Muestra los corazones restantes del jugador
                     for (Powerup pwerPower : lklVidas) {
                         pwerPower.paint(graDibujo, this);
                     }
@@ -303,10 +291,10 @@ public class Nivel2_Jefe extends JFrame implements Runnable,ActionListener,KeyLi
         
     }
 
-    
+    //Metodo que escucha y recibe cual tecla fue dejada de presionar
     public void keyReleased(KeyEvent ke) {
-        if(ke.getKeyCode() == KeyEvent.VK_RIGHT){
-            Nivel3 nvlNivel = new Nivel3();
+        if(ke.getKeyCode() == KeyEvent.VK_RIGHT){//SI se oprime flecha derecha
+            Nivel3 nvlNivel = new Nivel3(); //Cambia al Nivel3
             nvlNivel.setVisible(true);
             this.dispose();
         }

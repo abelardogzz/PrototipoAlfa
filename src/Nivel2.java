@@ -1,4 +1,12 @@
-
+/**
+ *Nivel2
+ * 
+ *Se encargara de modelar los objetos de la primera fase del segundo nivel
+ *del juego "El Misterio del Burro"
+ * 
+ * @author AbelardoGzz, LuisF, EduardoS
+ * 
+ */
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -23,27 +31,19 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-/**
- *
- * @author Abelardo
- */
+
 public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListener{
     
     private final int iMAXANCHO = 10; // maximo numero de personajes por ancho
     private final int iMAXALTO = 8;  // maxuimo numero de personajes por alto
-    private Jugador jugJuan;
-    private Jefe jefAlacran;
-    //private Alacran alaAlacranLado;
+    private Jugador jugJuan; //Jugador principal
+    
+    
     private Alacran alaAlacranArriba;
-    private Serpiente serSerpiente;
-    private Cactus catCactus;
-    private Powerup pw;
+    private Serpiente serSerpiente; //Enemigo serpiente,
+    
+    private Powerup pw; //Imagen de Revolver, tipo Powerup
     private Moneda objMoneda;
     //private Objeto objPowerUp;
     //private Objeto objRestVida;
@@ -56,14 +56,14 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
     private int iVidas; // Vidas del juego
     private int iPuntos; // Vidas del juego
     private Image imagameover; //Despliega imagen de fin de juego
-    private boolean bFin;
-    private boolean bPausa;
-    private boolean bCont;
-    private boolean bP2;
+    private boolean bFin; //Variable control final del juego
+    private boolean bPausa; //Variable para controlar la pausa
+    private boolean bCont; //Variable para contador
+    private boolean bP2; 
     long lbeforeTime; //long que me dira el tiempo del sistema
-    private LinkedList <Serpiente>lklSerpiente; //Lista Encadenada de fantasmas
-    private LinkedList <Lobo>lklLobo; //Lista Encadenada de fantasmas 
-    private LinkedList <Powerup>lklVidas; //Lista Encadenada de fantasmas 
+    private LinkedList <Serpiente>lklSerpiente; //Lista Encadenada de Serpientes
+    private LinkedList <Lobo>lklLobo; //Lista Encadenada de Lobos 
+    private LinkedList <Powerup>lklVidas; //Lista Encadenada de vidas 
     
     /* objetos para manejar el buffer del Applet y este no parpadee */
     private Image    imaImagenApplet;   // Imagen a proyectar en Applet	
@@ -74,22 +74,13 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
     private String nombreArchivo; //Nombre del archivo
     
     public Nivel2(){
-        super("Nivel 2");
-        setSize(800,600);
+        super("Nivel 2");// Titulo de la ventana
+        setSize(800,600);//DEfine el tamaño del frame en 800 alto y 600 largo
         setResizable(false);
         setLayout(new BorderLayout());
-        /*
-        JButton btn1= new JButton("Boton Prueba");
-        btn1.addActionListener(this);
-       
-        JPanel jpn1 = new JPanel();
-        jpn1.add(btn1);
-        
-        this.add(jpn1,BorderLayout.WEST);
-        jpn1.setOpaque(false);
-        */
         addKeyListener(this);
         
+        //Variable para la funcionalidad
         iPuntos=0;
         iDireccion = 0;
         iDirBala = 1;
@@ -113,7 +104,7 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
         th.start ();
         */
         
-        // defino la imagen de Juan
+        // Definicion de URLs para conseguir las rutas de las imagenes
 	URL urlImagenJuanLado = this.getClass().getResource("recursos/juanito.gif");
         URL urlImagenJuanArriba = this.getClass().getResource("recursos/Juan_arriba.png");
         URL urlImagenAlacranLado = this.getClass().getResource("recursos/alacran_lado.gif");
@@ -124,32 +115,38 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
         URL urlImagenVida = this.getClass().getResource("recursos/heart.png");
         URL urlImagenRevolver = this.getClass().getResource("recursos/Revolver6.png");
         
-        // se crea el objeto para Juan 
-        /* int iPosX = (iMAXANCHO - 1) * getWidth() / iMAXANCHO;
-           int iPosY = (iMAXALTO - 10) * getHeight() / iMAXALTO;   */
+        // se crea el objeto para Juan, con sus parametros correspondientes
         int iPosX = 400;
         int iPosY = 450;
-            jugJuan = new Jugador(0,440,100,100,
+        jugJuan = new Jugador(0,440,100,100,
                     Toolkit.getDefaultToolkit().getImage(urlImagenJuanLado), iVidas,iVidas, iCantMunicion, iCantMoneda);
         
-        lklSerpiente = new LinkedList();
-        lklSerpiente.add(new Serpiente(381,490,50,50,Toolkit.getDefaultToolkit().getImage(urlImagenSerpiente)));
-        lklSerpiente.add((new Serpiente(381,490,50,50,Toolkit.getDefaultToolkit().getImage(urlImagenSerpiente))));
-        lklSerpiente.add((new Serpiente(704,490,50,50,Toolkit.getDefaultToolkit().getImage(urlImagenSerpiente))));
-        //lklSerpiente.add((new Serpiente(650,500,50,50,Toolkit.getDefaultToolkit().getImage(urlImagenSerpiente))));
+        lklSerpiente = new LinkedList();//Inicializa la Linked List de Serpientes
+        //Agrega tres serpientes en posiciones fijas
+        lklSerpiente.add(new Serpiente(381,490,50,50,
+                Toolkit.getDefaultToolkit().getImage(urlImagenSerpiente)));
+        lklSerpiente.add((new Serpiente(381,490,50,50,
+                Toolkit.getDefaultToolkit().getImage(urlImagenSerpiente))));
+        lklSerpiente.add((new Serpiente(704,490,50,50,
+                Toolkit.getDefaultToolkit().getImage(urlImagenSerpiente))));
         
-        lklLobo = new LinkedList();
-        lklLobo.add(new Lobo(218,490,110,50,Toolkit.getDefaultToolkit().getImage(urlImagenLobo)));
-        lklLobo.add(new Lobo(500,490,110,50,Toolkit.getDefaultToolkit().getImage(urlImagenLobo)));
-        //lklLobo.add(new Lobo(704,430,110,50,Toolkit.getDefaultToolkit().getImage(urlImagenLobo)));
         
+        lklLobo = new LinkedList();//Inicializa la Linked List de Lobo
+        //Agrega el dos lobos en posiciones fijas
+        lklLobo.add(new Lobo(218,490,110,50,
+                Toolkit.getDefaultToolkit().getImage(urlImagenLobo)));
+        lklLobo.add(new Lobo(500,490,110,50,
+                Toolkit.getDefaultToolkit().getImage(urlImagenLobo)));
+        
+        //Fija el lugar del cartucho de las balas
         pw = new Powerup(62,98,100,100,
                 Toolkit.getDefaultToolkit().getImage(urlImagenRevolver));
         
+        //Iniciliza las Linked List de las vidas
         lklVidas = new LinkedList();
-        
         //Las vidas del jugador
         for (int i=0;i<4;i++){
+            //Creando una variable por mientras la agrega a la lista
             Powerup pwrVida = new Powerup(5+i*50,64,50,50,
                 Toolkit.getDefaultToolkit().getImage(urlImagenVida));
             lklVidas.add(pwrVida);
@@ -179,10 +176,17 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
     
     public void actionPerformed(ActionEvent ae) {
         JOptionPane.showMessageDialog(null, "No Funciona", "Hola", 0);
-       // System.out.println("Funciona Hola Lalo");
+       
     }
 
-    
+    /** 
+     * run
+     * 
+     * Metodo sobrescrito de la clase <code>Thread</code>.<P>
+     * En este metodo se ejecuta el hilo, que contendrá las instrucciones
+     * de nuestro juego.
+     * 
+     */
     public void run () {
         lbeforeTime = System.currentTimeMillis();
         /* mientras dure el juego, se actualizan posiciones de jugadores
@@ -212,10 +216,12 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
 	}
     }
     
+    //Metodo que actualizara los personajes
     public void actualiza(){
         
     }
     
+    //Metodo que checara las colisiones de los personakes
     public void checaColision(){
                 
     }
@@ -271,28 +277,27 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
         graDibujo.fillRect(0, 0, WIDTH, HEIGHT);
             if (jugJuan != null) {
                 
-                    //Dibuja la imagen de principal en el Applet
-                  
-                    //Pinta malo
+                    //Dibuja el personaje principal en el Applet
                     jugJuan.paint(graDibujo,this);
-                    //graDibujo.drawImage(aniAnima.getImagen(),50,50,this);
+                    //Dibuja los titulos necesarios de la pantalla
                     graDibujo.setColor(Color.WHITE);
                     graDibujo.setFont(new Font("Serif", Font.BOLD, 25));
                     graDibujo.drawString("Nivel 2 ", 5 , 54);
                     graDibujo.setFont(new Font("Serif", Font.BOLD, 18));
                     graDibujo.drawString("Balas", 5 , 124);
                     
-                    pw.paint(graDibujo,this);
+                    pw.paint(graDibujo,this);//Dibuja el revolver
                     
                     for (Serpiente ser1 : lklSerpiente) {
-                        //Dibuja la imagen de dumbo en el Applet
+                        //Dibuja la imagen de Serpiente en el Applet
                         ser1.paint(graDibujo, this);
                     }
                     for (Lobo lob1 : lklLobo) {
-                        //Dibuja la imagen de dumbo en el Applet
+                        //Dibuja la imagen de Lobo en el Applet
                         lob1.paint(graDibujo, this);
                     }
                     for (Powerup pwerPower : lklVidas) {
+                        //Dibuja la imagen de Lobo en el Applet
                         pwerPower.paint(graDibujo, this);
                     }
              
@@ -319,12 +324,12 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
         
     }
 
-    
+    //Metodo que escucha y recibe cual tecla fue dejada de presionar
     public void keyReleased(KeyEvent ke) {
-        if(ke.getKeyCode() == KeyEvent.VK_RIGHT){
-            Nivel2_1 nvlNivel = new Nivel2_1();
-            nvlNivel.setVisible(true);
-            this.dispose();
+        if(ke.getKeyCode() == KeyEvent.VK_RIGHT){ //Si se suelta flecha derecha
+            Nivel2_1 nvlNivel = new Nivel2_1();//Crea nuevo JFrame de Nivel2_1
+            nvlNivel.setVisible(true);          //Lo muestra  
+            this.dispose();                     //Se deshace del actual
         }
     }
     

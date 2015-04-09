@@ -1,3 +1,12 @@
+/**
+ *Nivel2_1
+ * 
+ *Se encargara de modelar los objetos de la segunda fase del segundo nivel
+ *del juego "El Misterio del Burro"
+ * 
+ * @author AbelardoGzz, LuisF, EduardoS
+ * 
+ */
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -22,25 +31,13 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author Abelardo
- */
 public class Nivel2_1 extends JFrame implements Runnable,ActionListener,KeyListener{
     
     private final int iMAXANCHO = 10; // maximo numero de personajes por ancho
     private final int iMAXALTO = 8;  // maxuimo numero de personajes por alto
-    private Jugador jugJuan;
-    private Jefe jefAlacran;
-    //private Alacran alaAlacranLado;
-    private Alacran alaAlacranArriba;
-    private Serpiente serSerpiente;
+    private Jugador jugJuan; // Jugador principal
+    private Alacran alaAlacranArriba; //Alacran enemigo 
+    private Serpiente serSerpiente; 
     private Cactus catCactus;
     private Powerup pw;
     private Moneda objMoneda;
@@ -60,9 +57,9 @@ public class Nivel2_1 extends JFrame implements Runnable,ActionListener,KeyListe
     private boolean bCont;
     private boolean bP2;
     long lbeforeTime; //long que me dira el tiempo del sistema
-    private LinkedList <Alacran>lklAlacran; //Lista Encadenada de fantasmas
-    private LinkedList <Lobo>lklLobo; //Lista Encadenada de fantasmas 
-    private LinkedList <Powerup>lklVidas; //Lista Encadenada de fantasmas 
+    private LinkedList <Alacran>lklAlacran; //Lista Encadenada de alacranes
+    private LinkedList <Lobo>lklLobo; //Lista Encadenada de lobos
+    private LinkedList <Powerup>lklVidas; //Lista Encadenada de vidas
     
     /* objetos para manejar el buffer del Applet y este no parpadee */
     private Image    imaImagenApplet;   // Imagen a proyectar en Applet	
@@ -73,22 +70,13 @@ public class Nivel2_1 extends JFrame implements Runnable,ActionListener,KeyListe
     private String nombreArchivo; //Nombre del archivo
     
     public Nivel2_1(){
-        super("Nivel 2 ");
-        setSize(800,600);
+        super("Nivel 2 ");//Titulo ventana
+        setSize(800,600);//Tamaño ventana
         setResizable(false);
         setLayout(new BorderLayout());
-        /*
-        JButton btn1= new JButton("Boton Prueba");
-        btn1.addActionListener(this);
-       
-        JPanel jpn1 = new JPanel();
-        jpn1.add(btn1);
-        
-        this.add(jpn1,BorderLayout.WEST);
-        jpn1.setOpaque(false);
-        */
         addKeyListener(this);
         
+        //Variables funcionalidad
         iPuntos=0;
         iDireccion = 0;
         iDirBala = 1;
@@ -112,7 +100,7 @@ public class Nivel2_1 extends JFrame implements Runnable,ActionListener,KeyListe
         th.start ();
         */
         
-        // defino la imagen de Juan
+        // Definicion de URLs para conseguir las rutas de las imagenes
 	URL urlImagenJuanLado = this.getClass().getResource("recursos/Juan_arriba.png");
         URL urlImagenJuanArriba = this.getClass().getResource("recursos/Juan_arriba.png");
         URL urlImagenAlacranArriba = this.getClass().getResource("recursos/alacran_arriba.gif");
@@ -124,36 +112,34 @@ public class Nivel2_1 extends JFrame implements Runnable,ActionListener,KeyListe
         URL urlImagenRevolver = this.getClass().getResource("recursos/Revolver6.png");
         
         // se crea el objeto para Juan 
-        /* int iPosX = (iMAXANCHO - 1) * getWidth() / iMAXANCHO;
-           int iPosY = (iMAXALTO - 10) * getHeight() / iMAXALTO;   */
         int iPosX = 400;
         int iPosY = 450;
             jugJuan = new Jugador(382,440,150,150,
                     Toolkit.getDefaultToolkit().getImage(urlImagenJuanArriba), iVidas,iVidas, iCantMunicion, iCantMoneda);
-        
+        //Crea una nueva lista y carga 5 alacranes en posiciones espeificas
         lklAlacran = new LinkedList();
-        lklAlacran.add(new Alacran(381,200,50,50,Toolkit.getDefaultToolkit().getImage(urlImagenAlacranArriba)));
-        lklAlacran.add((new Alacran(400,300,50,50,Toolkit.getDefaultToolkit().getImage(urlImagenAlacranArriba))));
-        lklAlacran.add((new Alacran(704,400,50,50,Toolkit.getDefaultToolkit().getImage(urlImagenAlacranArriba))));
-        //lklSerpiente.add((new Serpiente(650,500,50,50,Toolkit.getDefaultToolkit().getImage(urlImagenSerpiente))));
+        lklAlacran.add(new Alacran(381,200,50,50,
+                Toolkit.getDefaultToolkit().getImage(urlImagenAlacranArriba)));
+        lklAlacran.add((new Alacran(400,300,50,50,
+                Toolkit.getDefaultToolkit().getImage(urlImagenAlacranArriba))));
+        lklAlacran.add((new Alacran(704,400,50,50,
+                Toolkit.getDefaultToolkit().getImage(urlImagenAlacranArriba))));
+        lklAlacran.add(new Alacran(218,390,50,50,
+                Toolkit.getDefaultToolkit().getImage(urlImagenAlacranArriba)));
+        lklAlacran.add(new Alacran(500,360,50,50,
+                Toolkit.getDefaultToolkit().getImage(urlImagenAlacranArriba)));
         
-        lklLobo = new LinkedList();
-        lklAlacran.add(new Alacran(218,390,50,50,Toolkit.getDefaultToolkit().getImage(urlImagenAlacranArriba)));
-        lklAlacran.add(new Alacran(500,360,50,50,Toolkit.getDefaultToolkit().getImage(urlImagenAlacranArriba)));
-        //lklLobo.add(new Lobo(704,430,110,50,Toolkit.getDefaultToolkit().getImage(urlImagenLobo)));
-        
-        lklVidas = new LinkedList();
+        //Agrega la imagen del revolver
         pw = new Powerup(62,98,100,100,
                 Toolkit.getDefaultToolkit().getImage(urlImagenRevolver));
         
-        //Las vidas del jugador
+        //Crea lista de vidas y la llena con cuatro vidas
+        lklVidas = new LinkedList();
         for (int i=0;i<4;i++){
             Powerup pwrVida = new Powerup(5+i*50,64,50,50,
                 Toolkit.getDefaultToolkit().getImage(urlImagenVida));
             lklVidas.add(pwrVida);
         }
-        
-        
         
         //Este metodo se utiliza para que se cierre la ventana una vez que se est
          //coriendo el juego
@@ -177,7 +163,6 @@ public class Nivel2_1 extends JFrame implements Runnable,ActionListener,KeyListe
     
     public void actionPerformed(ActionEvent ae) {
         JOptionPane.showMessageDialog(null, "No Funciona", "Hola", 0);
-       // System.out.println("Funciona Hola Lalo");
     }
 
     
@@ -269,28 +254,27 @@ public class Nivel2_1 extends JFrame implements Runnable,ActionListener,KeyListe
         graDibujo.fillRect(0, 0, WIDTH, HEIGHT);
             if (jugJuan != null) {
                 
-                    //Dibuja la imagen de principal en el Applet
-                  
-                    //Pinta malo
+                    //Dibuja el personaje principal
                     jugJuan.paint(graDibujo,this);
-                    //graDibujo.drawImage(aniAnima.getImagen(),50,50,this);
+                    //Dibuja los titulos necesarios de la pantalla
                     graDibujo.setColor(Color.WHITE);
                     graDibujo.setFont(new Font("Serif", Font.BOLD, 25));
                     graDibujo.drawString("Nivel 2", 5 , 54);
                     graDibujo.setFont(new Font("Serif", Font.BOLD, 18));
                     graDibujo.drawString("Balas", 5 , 124);
                     
-                    pw.paint(graDibujo,this);
+                    pw.paint(graDibujo,this);//Pnta el revolver
                     
                     for (Alacran ala1 : lklAlacran) {
-                        //Dibuja la imagen de dumbo en el Applet
+                        //Dibuja la imagen de alacran en el Frame
                         ala1.paint(graDibujo, this);
                     }
                     for (Lobo lob1 : lklLobo) {
-                        //Dibuja la imagen de dumbo en el Applet
+                        //Dibuja la imagen de Lobo en el Frame
                         lob1.paint(graDibujo, this);
                     }
                     for (Powerup pwerPower : lklVidas) {
+                        //Dibuja las vidas en el frame
                         pwerPower.paint(graDibujo, this);
                     }
              
@@ -317,10 +301,10 @@ public class Nivel2_1 extends JFrame implements Runnable,ActionListener,KeyListe
         
     }
 
-    
+    //Metodo que escucha y recibe cual tecla fue dejada de presionar
     public void keyReleased(KeyEvent ke) {
-        if(ke.getKeyCode() == KeyEvent.VK_RIGHT){
-            Nivel2_Jefe nvlNivel = new Nivel2_Jefe();
+        if(ke.getKeyCode() == KeyEvent.VK_RIGHT){ //Si se oprime flecha derecha
+            Nivel2_Jefe nvlNivel = new Nivel2_Jefe(); //Creas nuevo Nivel2_Jefe
             nvlNivel.setVisible(true);
             this.dispose();
         }
