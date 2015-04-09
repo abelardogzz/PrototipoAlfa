@@ -9,10 +9,12 @@
  * @author Abelardo
  */
 
+import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import java.awt.Graphics;
 import java.awt.Font;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,8 +22,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class SeleccionarArchivo extends JFrame implements ActionListener, KeyListener, Runnable {
     
@@ -43,21 +48,31 @@ public class SeleccionarArchivo extends JFrame implements ActionListener, KeyLis
         super("Seleccionar Archivo");
         setSize(600,600);
         setResizable(false);
-        setLayout(new FlowLayout());
+        JPanel pnlPanel = new JPanel();
+        pnlPanel.add(Box.createRigidArea(new Dimension(0,5)));
+        add(pnlPanel);
+        pnlPanel.setLayout(new BoxLayout(pnlPanel,BoxLayout.PAGE_AXIS));
+        setLayout(new BorderLayout());
         JLabel jLbl=new JLabel("Cargar Partida");
         JButton btn1= new JButton("Archivo 1");
         JButton btn2= new JButton("Archivo 2");
         JButton btn3= new JButton("Archivo 3");
+        JButton btnRegresar= new JButton("Regresar");
         btn1.setActionCommand("b1");
         btn2.setActionCommand("b2");
         btn3.setActionCommand("b3");
         btn1.addActionListener(this);
         btn2.addActionListener(this);
         btn3.addActionListener(this);
-        this.add(jLbl);
-        add(btn1);
-        add(btn2);
-        add(btn3);
+        btnRegresar.addActionListener(this);
+        pnlPanel.add(jLbl);
+        pnlPanel.add(btn1);
+        pnlPanel.add(btn2);
+        pnlPanel.add(btn3);
+        
+        this.add(pnlPanel,BorderLayout.CENTER);
+        this.add(btnRegresar,BorderLayout.SOUTH);
+        
         addKeyListener(this);
         
         this.addWindowListener(new WindowAdapter() {
@@ -73,27 +88,35 @@ public class SeleccionarArchivo extends JFrame implements ActionListener, KeyLis
     public void actionPerformed(ActionEvent e) {
         String BtnPress = e.getActionCommand();
         
+        if (BtnPress == "Regresar"){
+            PantallaSeleccion pantSel = new PantallaSeleccion();
+            pantSel.setVisible(true);
+            this.dispose();
+        }
+        
          
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+      
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+        
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
     }
 
     @Override
     public void run() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
     }
 
     

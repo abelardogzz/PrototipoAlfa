@@ -295,13 +295,14 @@ public class Nivel1 extends JFrame implements ActionListener, KeyListener, Runna
         
     }
 
-    
+    //Aqui se cambia de pantalla
     public void keyReleased(KeyEvent ke) {
         if(ke.getKeyCode() == KeyEvent.VK_RIGHT){
-            
-            bP2=true;
+            Nivel1_1 nvlNivel = new Nivel1_1();
+            nvlNivel.setVisible(true);
+            this.dispose();
         }
-    }
+     }
     
 
     
