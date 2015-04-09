@@ -29,11 +29,10 @@ import javax.swing.JOptionPane;
  *
  * @author Abelardo
  */
-public class Nivel3 extends JFrame implements ActionListener, KeyListener, Runnable {
+public class Nivel3_Jefe extends JFrame implements ActionListener, KeyListener, Runnable {
     
     private Jugador jugJuan;
-    private Cholo chlCholo;
-    private Cholo chlCholo2;
+    private Jefe jefFinal;
     private Moneda objMoneda;
     private Objeto objRestVida;
     private Objeto objVidaExtra;
@@ -41,7 +40,6 @@ public class Nivel3 extends JFrame implements ActionListener, KeyListener, Runna
     private int iCantMunicion;
     private int iCantMoneda;
     private int iVidas; // Vidas del juego
-    private Powerup pw;
     private boolean bFin;
     private boolean bPausa;
     private boolean bCont;
@@ -58,16 +56,16 @@ public class Nivel3 extends JFrame implements ActionListener, KeyListener, Runna
     public static void main(String[] args){ 
         
          //Crea un nuevo objeto nvlNivel1
-        Nivel3 nvlNivel3 = new Nivel3();
+        Nivel3_Jefe nvlNivel3Jefe = new Nivel3_Jefe();
         //Despliega la ventana en pantalla al hacerla visible
-        nvlNivel3.setVisible(true);
+        nvlNivel3Jefe.setVisible(true);
         
-        nvlNivel3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        nvlNivel3Jefe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Despliega la ventana en pantalla al hacerla visible
-        nvlNivel3.setVisible(true);
+        nvlNivel3Jefe.setVisible(true);
         
         //Para que se pueda cerrar la pantalla
-        nvlNivel3.addWindowListener(new WindowAdapter() {
+        nvlNivel3Jefe.addWindowListener(new WindowAdapter() {
           public void windowClosing(WindowEvent e) {
               System.exit(0);
           }
@@ -75,9 +73,9 @@ public class Nivel3 extends JFrame implements ActionListener, KeyListener, Runna
  
     }
     
-    public Nivel3(){
+    public Nivel3_Jefe(){
         //Aqui se establece lo basico del JFrame
-        super("Nivel 3");
+        super("Nivel 3 - Jefe");
         setSize(800,600);
         setResizable(false);
         setLayout(new FlowLayout());
@@ -100,9 +98,9 @@ public class Nivel3 extends JFrame implements ActionListener, KeyListener, Runna
         // defino las imagenes que usare
 	URL urlImagenJuanLado = this.getClass().getResource("recursos/juanito.gif");
         URL urlImagenJuanArriba = this.getClass().getResource("recursos/Juan_arriba.png");
-        URL urlImagenCholo = this.getClass().getResource("recursos/cholo.gif");
+        URL urlImagenJefeFinal = this.getClass().getResource("recursos/jefe_final.png");
         URL urlImagenVida = this.getClass().getResource("recursos/heart.png");
-        URL urlImagenRevolver = this.getClass().getResource("recursos/Revolver6.png");
+        
         
         //A continuacion se ponen los objetos de esta pantalla
         jugJuan = new Jugador(0,467,100,
@@ -110,14 +108,8 @@ public class Nivel3 extends JFrame implements ActionListener, KeyListener, Runna
                     Toolkit.getDefaultToolkit().getImage(urlImagenJuanLado), iVidas,
                 iVidas, iCantMunicion, iCantMoneda);
         
-        chlCholo = new Cholo(381,447,70,120,
-                Toolkit.getDefaultToolkit().getImage(urlImagenCholo));
-        
-        chlCholo2 = new Cholo(691,447,70,120,
-                Toolkit.getDefaultToolkit().getImage(urlImagenCholo));
-        
-        pw = new Powerup(62,98,100,100,
-                Toolkit.getDefaultToolkit().getImage(urlImagenRevolver));
+        jefFinal = new Jefe(681,457,70,120,
+                Toolkit.getDefaultToolkit().getImage(urlImagenJefeFinal), 2);
         
         lklVidas = new LinkedList();
         
@@ -206,7 +198,7 @@ public class Nivel3 extends JFrame implements ActionListener, KeyListener, Runna
 		graGraficaApplet.fillRect (0, 0, this.getSize().width, this.getSize().height);
         
    
-        URL urlImagenFondo = this.getClass().getResource("recursos/fondo3.png");
+        URL urlImagenFondo = this.getClass().getResource("recursos/fondo_jefe.png");
         Image imaImagenFondo = Toolkit.getDefaultToolkit().getImage(urlImagenFondo);
         graGraficaApplet.drawImage(imaImagenFondo, 0, 0, getWidth(), getHeight(), this);
         
@@ -238,14 +230,12 @@ public class Nivel3 extends JFrame implements ActionListener, KeyListener, Runna
                   
                     //Pinta malo
                     jugJuan.paint(graDibujo,this);
-                    chlCholo.paint(graDibujo,this);
-                    chlCholo2.paint(graDibujo,this);
-                    pw.paint(graDibujo,this);
+                    jefFinal.paint(graDibujo,this);
                     
                     //graDibujo.drawImage(aniAnima.getImagen(),50,50,this);
                     graDibujo.setColor(Color.WHITE);
                     graDibujo.setFont(new Font("Serif", Font.BOLD, 25));
-                    graDibujo.drawString("Nivel 3 ", 5 , 54);
+                    graDibujo.drawString("Nivel 3 - Jefe ", 5 , 54);
                     graDibujo.setFont(new Font("Serif", Font.BOLD, 18));
                     graDibujo.drawString("Balas", 5 , 124);
                     
@@ -274,9 +264,8 @@ public class Nivel3 extends JFrame implements ActionListener, KeyListener, Runna
     
     public void keyReleased(KeyEvent ke) {
         if(ke.getKeyCode() == KeyEvent.VK_RIGHT){
-            Nivel3_1 nvlNivel = new Nivel3_1();
-            nvlNivel.setVisible(true);
-            this.dispose();
+            
+            bP2=true;
         }
     }
     

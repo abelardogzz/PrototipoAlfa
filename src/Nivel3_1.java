@@ -15,6 +15,7 @@ import static java.awt.image.ImageObserver.HEIGHT;
 import static java.awt.image.ImageObserver.WIDTH;
 import java.net.URL;
 import java.util.LinkedList;
+import java.util.Random;
 import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -29,7 +30,7 @@ import javax.swing.JOptionPane;
  *
  * @author Abelardo
  */
-public class Nivel3 extends JFrame implements ActionListener, KeyListener, Runnable {
+public class Nivel3_1 extends JFrame implements ActionListener, KeyListener, Runnable {
     
     private Jugador jugJuan;
     private Cholo chlCholo;
@@ -48,6 +49,7 @@ public class Nivel3 extends JFrame implements ActionListener, KeyListener, Runna
     private boolean bP2;
     long lbeforeTime; //long que me dira el tiempo del sistema
     private LinkedList <Powerup>lklVidas; //Lista Encadena de Vidas del Jugador
+    private LinkedList <Cholo>lklCholos;//Lista Encadena de Cholos
     /* objetos para manejar el buffer del Applet y este no parpadee */
     private Image    imaImagenApplet;   // Imagen a proyectar en Applet	
     private Graphics graGraficaApplet;  // Objeto grafico de la Image
@@ -58,16 +60,16 @@ public class Nivel3 extends JFrame implements ActionListener, KeyListener, Runna
     public static void main(String[] args){ 
         
          //Crea un nuevo objeto nvlNivel1
-        Nivel3 nvlNivel3 = new Nivel3();
+        Nivel3_1 nvlNivel3_1 = new Nivel3_1();
         //Despliega la ventana en pantalla al hacerla visible
-        nvlNivel3.setVisible(true);
+        nvlNivel3_1.setVisible(true);
         
-        nvlNivel3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        nvlNivel3_1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Despliega la ventana en pantalla al hacerla visible
-        nvlNivel3.setVisible(true);
+        nvlNivel3_1.setVisible(true);
         
         //Para que se pueda cerrar la pantalla
-        nvlNivel3.addWindowListener(new WindowAdapter() {
+        nvlNivel3_1.addWindowListener(new WindowAdapter() {
           public void windowClosing(WindowEvent e) {
               System.exit(0);
           }
@@ -75,9 +77,9 @@ public class Nivel3 extends JFrame implements ActionListener, KeyListener, Runna
  
     }
     
-    public Nivel3(){
+    public Nivel3_1(){
         //Aqui se establece lo basico del JFrame
-        super("Nivel 3");
+        super("Nivel 3 - 1");
         setSize(800,600);
         setResizable(false);
         setLayout(new FlowLayout());
@@ -105,21 +107,16 @@ public class Nivel3 extends JFrame implements ActionListener, KeyListener, Runna
         URL urlImagenRevolver = this.getClass().getResource("recursos/Revolver6.png");
         
         //A continuacion se ponen los objetos de esta pantalla
-        jugJuan = new Jugador(0,467,100,
-                    100,
-                    Toolkit.getDefaultToolkit().getImage(urlImagenJuanLado), iVidas,
+        jugJuan = new Jugador(382,440,150,
+                    150,
+                    Toolkit.getDefaultToolkit().getImage(urlImagenJuanArriba), iVidas,
                 iVidas, iCantMunicion, iCantMoneda);
-        
-        chlCholo = new Cholo(381,447,70,120,
-                Toolkit.getDefaultToolkit().getImage(urlImagenCholo));
-        
-        chlCholo2 = new Cholo(691,447,70,120,
-                Toolkit.getDefaultToolkit().getImage(urlImagenCholo));
         
         pw = new Powerup(62,98,100,100,
                 Toolkit.getDefaultToolkit().getImage(urlImagenRevolver));
         
         lklVidas = new LinkedList();
+        lklCholos = new LinkedList();
         
         //Las vidas del jugador
         for (int i=0;i<4;i++){
@@ -127,6 +124,16 @@ public class Nivel3 extends JFrame implements ActionListener, KeyListener, Runna
                 Toolkit.getDefaultToolkit().getImage(urlImagenVida));
             lklVidas.add(pwrVida);
         }
+        
+        //Los cholos
+        for (int i=0;i<6;i++){
+           Random randR = new Random();
+           Cholo chlCholos = new Cholo((i+3)*65, randR.nextInt((200 - 65) + 1) + 65,55,70,
+                Toolkit.getDefaultToolkit().getImage(urlImagenCholo));
+           lklCholos.add(chlCholos);
+        
+        }
+        
         //Este metodo se utiliza para que se cierre la ventana una vez que se est
          //coriendo el juego
         this.addWindowListener(new WindowAdapter() {
@@ -238,19 +245,21 @@ public class Nivel3 extends JFrame implements ActionListener, KeyListener, Runna
                   
                     //Pinta malo
                     jugJuan.paint(graDibujo,this);
-                    chlCholo.paint(graDibujo,this);
-                    chlCholo2.paint(graDibujo,this);
                     pw.paint(graDibujo,this);
                     
                     //graDibujo.drawImage(aniAnima.getImagen(),50,50,this);
                     graDibujo.setColor(Color.WHITE);
                     graDibujo.setFont(new Font("Serif", Font.BOLD, 25));
-                    graDibujo.drawString("Nivel 3 ", 5 , 54);
+                    graDibujo.drawString("Nivel 3 - 1 ", 5 , 54);
                     graDibujo.setFont(new Font("Serif", Font.BOLD, 18));
                     graDibujo.drawString("Balas", 5 , 124);
                     
                     for (Powerup pwerPower : lklVidas) {
                         pwerPower.paint(graDibujo, this);
+                    }
+                    
+                    for (Cholo chlCholos : lklCholos) {
+                        chlCholos.paint(graDibujo, this);
                     }
              
             } // sino se ha cargado se dibuja un mensaje 
@@ -274,12 +283,9 @@ public class Nivel3 extends JFrame implements ActionListener, KeyListener, Runna
     
     public void keyReleased(KeyEvent ke) {
         if(ke.getKeyCode() == KeyEvent.VK_RIGHT){
-            Nivel3_1 nvlNivel = new Nivel3_1();
+            Nivel3_Jefe nvlNivel = new Nivel3_Jefe();
             nvlNivel.setVisible(true);
             this.dispose();
         }
     }
-    
-
-    
 }

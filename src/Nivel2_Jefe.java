@@ -306,7 +306,7 @@ public class Nivel2_Jefe extends JFrame implements Runnable,ActionListener,KeyLi
     
     public void keyReleased(KeyEvent ke) {
         if(ke.getKeyCode() == KeyEvent.VK_RIGHT){
-            Nivel2_Jefe nvlNivel = new Nivel2_Jefe();
+            Nivel3 nvlNivel = new Nivel3();
             nvlNivel.setVisible(true);
             this.dispose();
         }
