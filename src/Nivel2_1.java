@@ -269,10 +269,7 @@ public class Nivel2_1 extends JFrame implements Runnable,ActionListener,KeyListe
                         //Dibuja la imagen de alacran en el Frame
                         ala1.paint(graDibujo, this);
                     }
-                    for (Lobo lob1 : lklLobo) {
-                        //Dibuja la imagen de Lobo en el Frame
-                        lob1.paint(graDibujo, this);
-                    }
+                    
                     for (Powerup pwerPower : lklVidas) {
                         //Dibuja las vidas en el frame
                         pwerPower.paint(graDibujo, this);
