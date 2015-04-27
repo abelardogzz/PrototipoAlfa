@@ -294,7 +294,7 @@ public class Nivel1_1 extends JFrame implements ActionListener, KeyListener, Run
     
     public void keyReleased(KeyEvent ke) {
         if(ke.getKeyCode() == KeyEvent.VK_RIGHT){
-            Nivel2 nvlNivel = new Nivel2();
+            Nivel1_Jefe nvlNivel = new Nivel1_Jefe();
             nvlNivel.setVisible(true);
             this.dispose();
         }
