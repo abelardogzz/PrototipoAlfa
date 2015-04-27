@@ -13,66 +13,30 @@ import java.awt.Image;
 import java.awt.image.ImageObserver;
 import javax.swing.ImageIcon;
 
-public class Monstruo {
+ public abstract class Monstruo extends Sprite  {
     
-    protected int iX;     //posicion en x.       
-    protected int iY;     //posicion en y.
-    protected int iAncho; //ancho del monstruo
-    protected int iAlto; //largo del monstruo
-    protected Image imaImagen;	//icono.
+
     protected String sTipo;
     protected boolean visible;
     protected int iDaño;
     
+    public static final int STATE_NORMAL = 0;
+    public static final int STATE_DYING = 1;
+    public static final int STATE_DEAD = 2;
     
-     /**
-     * Monstruo
-     * 
-     * Este es el constructor default
+    private Animacion animIzq;
+    private Animacion animDer;
+    private Animacion animMuert;
+    
+    private int state;
+    private long stateTime;
 
-     * 
-     */
-    public Monstruo(){
-        this.visible=true;
-        
-    }
     
-     /**
-     * setX
-     * 
-     * Metodo que configura la posicion X del monstruo
-     * 
-     * @param iPosX es la <code>posicion en x</code> del monstruo.
-     * 
-     */
-    public void setX(int iPosX){
-        iX=iPosX;
+    public Monstruo(Image imaImagen){
+        //Esta imagen es la anim de la derecha
+        super(imaImagen);
+        state=STATE_NORMAL;
     }
-    
-     /**
-     * setY
-     * 
-     * Metodo que configura la posicion Y del monstruo
-     * 
-     * @param iPosY es la <code>posicion en y</code> del monstruo.
-     * 
-     */
-    public void setY(int iPosY){
-        iY=iPosY;
-    }
-    
-     /**
-     * getX
-     * 
-     * Metodo de acceso que regresa la posicion en x del monstruo
-     * 
-     * @return iX es la <code>posicion en x</code> del monstruo.
-     * 
-     */
-    public int getX() {
-            return iX;
-    }
-    
      /**
      * setDaño
      * 
@@ -98,79 +62,115 @@ public class Monstruo {
             return iX;
     }
     
-     /**
-     * getY
-     * 
-     * Metodo de acceso que regresa la posicion en y del monstruo 
-     * 
-     * @return posY es la <code>posicion en y</code> del monstruo.
-     * 
-     */
-    public int getY() {
-        return iY;
-    }
-    
-    /**
-     * getAncho
-     * 
-     * Metodo de acceso que regresa el ancho del icono 
-     * 
-     * @return un <code>entero</code> que es el ancho del icono.
-     * 
-     */
-    public int getAncho() {
-        return iAncho;
+        /**
+        Gets the maximum speed of this Creature.
+    */
+    public int getMaxSpeed() {
+        return 0;
     }
 
+
     /**
-     * getAlto
-     * 
-     * Metodo que  da el alto del icono 
-     * 
-     * @return un <code>entero</code> que es el alto del icono.
-     * 
-     */
-    public int getAlto() {
-        return iAlto;
+        Wakes up the creature when the Creature first appears
+        on screen. Normally, the creature starts moving left.
+    */
+    public void wakeUp() {
+        if (getState() == STATE_NORMAL && getVelocidadX() == 0) {
+            setVelocidadX(-getMaxSpeed());
+        }
+    }
+
+
+    /**
+        Gets the state of this Creature. The state is either
+        STATE_NORMAL, STATE_DYING, or STATE_DEAD.
+    */
+    public int getState() {
+        return state;
+    }
+
+
+    /**
+        Sets the state of this Creature to STATE_NORMAL,
+        STATE_DYING, or STATE_DEAD.
+    */
+    public void setState(int state) {
+        if (this.state != state) {
+            this.state = state;
+            stateTime = 0;
+            if (state == STATE_DYING) {
+                setVelocidadX(0);
+                setVelocidadY(0);
+            }
+        }
+    }
+
+
+    /**
+        Checks if this creature is alive.
+    */
+    public boolean isAlive() {
+        return (state == STATE_NORMAL);
+    }
+
+
+    /**
+        Checks if this creature is flying.
+    */
+    public boolean isFlying() {
+        return false;
+    }
+
+
+    /**
+        Called before update() if the creature collided with a
+        tile horizontally.
+    */
+    public void collideHorizontal() {
+        setVelocidadX(-getVelocidadX());
+    }
+
+
+    /**
+        Called before update() if the creature collided with a
+        tile vertically.
+    */
+    public void collideVertical() {
+        setVelocidadY(0);
     }
     
-    /**
-     * setImagen
-     * 
-     * Metodo modificador usado para cambiar el icono de imagen del monstruo
-     * tomandolo de un objeto imagen
-     * 
-     * @param imaImagen es la <code>imagen</code> del monstruo.
-     * 
-     */
-    public void setImagen(Image imaImagen) {
-        this.imaImagen = imaImagen;
+      /**
+        Updates the animaton for this creature.
+     * @param elapsedTime
+    */
+    @Override
+    public void actualiza(long elapsedTime) {
+        // select the correct Animation
+        Animacion aniAnimacion = this.aniAnimacion;
+        if (getVelocidadX() < 0) {
+           
+        }
+      
+
+        // update the Animation
+        if (this.aniAnimacion != aniAnimacion) {
+            this.aniAnimacion = aniAnimacion;
+            this.aniAnimacion.iniciar();
+        }
+        else {
+            this.aniAnimacion.actualiza(elapsedTime);
+        }
+
+        // update to "dead" state
+        stateTime += elapsedTime;
+        if (state == STATE_DYING) {
+            setState(STATE_DEAD);
+        }
     }
-    
-     /**
-     * getImagen
-     * 
-     * Metodo de acceso que regresa la imagen que representa el icono del monstruo
-     * 
-     * @return la imagen a partide del <code>icono</code> del monstruo.
-     * 
-     */
-    public Image getImagen() {
-        return imaImagen;
-    }
-    
-    /**
-     * paint
-     * 
-     * Metodo para pintar el animal
-     * 
-     * @param graGrafico    objeto de la clase <code>Graphics</code> para graficar
-     * @param imoObserver  objeto de la clase <code>ImageObserver</code> es el 
-     *    Applet donde se pintara
-     * 
-     */
-    public void paint(Graphics graGrafico, ImageObserver imoObserver) {
-        graGrafico.drawImage(getImagen(), getX(), getY(), getAncho(), getAlto(), imoObserver);
-    }
+
+
+
+
+
     
 }

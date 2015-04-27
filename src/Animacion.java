@@ -22,6 +22,8 @@ public class Animacion{
 		duracionTotal = 0;
 		iniciar();
 	}
+        
+      
 	
         public synchronized void sumaCuadro(Image imagen,int iEscalaAncho, 
                 int iEscalaAlto,long duracion){

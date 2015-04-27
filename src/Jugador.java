@@ -14,7 +14,7 @@ import java.awt.Rectangle;
 import java.awt.image.ImageObserver;
 import javax.swing.ImageIcon;
 
-public class Jugador {
+public class Jugador extends Sprite{
     
     private int iX;     //posicion en x.       
     private int iY;     //posicion en y.
@@ -42,12 +42,11 @@ public class Jugador {
      */
     public Jugador(int iX, int iY , int iAncho, int iAlto,Image imaImagen,
             int iVida,int iVidaTotal, int icantMunicion, int icantMonedas) {
+        super(imaImagen);
         this.iX = iX;
         this.iY = iY;
         this.iAncho = iAncho;
         this.iAlto = iAlto;
-        aniAnimacion=new Animacion();
-        aniAnimacion.sumaCuadro(imaImagen,100);
         this.iVida=iVida;
         this.iVidaTotal=iVidaTotal;
         this.icantMonedas=icantMonedas;
@@ -55,17 +54,7 @@ public class Jugador {
         
     }
     
-    /**
-     * setX
-     * 
-     * Metodo modificador usado para cambiar la posicion en x del jugador
-     * 
-     * @param iX es la <code>posicion en x</code> del jugador.
-     * 
-     */
-    public void setX(int iX) {
-        this.iX = iX;
-    }
+
     
     /**
      * setVidaTotal
@@ -114,29 +103,7 @@ public class Jugador {
     public String cambiarArma() {
         return this.sArmActual;
     }
-    /**
-     * getX
-     * 
-     * Metodo de acceso que regresa la posicion en x del jugador 
-     * 
-     * @return iX es la <code>posicion en x</code> del jugador.
-     * 
-     */
-    public int getX() {
-            return iX;
-    }
-    
-    /**
-     * setY
-     * 
-     * Metodo modificador usado para cambiar la posicion en y del jugador 
-     * 
-     * @param iY es la <code>posicion en y</code> del jugador.
-     * 
-     */
-    public void setY(int iY) {
-            this.iY = iY;
-    }
+
     
     /**
      * getcantMonedas
@@ -186,84 +153,6 @@ public class Jugador {
             this.icantMunicion=this.icantMunicion+icantMunicion;
     }
 
-    /**
-     * getY
-     * 
-     * Metodo de acceso que regresa la posicion en y del jugador 
-     * 
-     * @return posY es la <code>posicion en y</code> del jugador.
-     * 
-     */
-    public int getY() {
-        return iY;
-    }
-    
-   
-    /**
-     * setImagen
-     * 
-     * Metodo modificador usado para cambiar el icono de imagen del jugador
-     * tomandolo de un jugador imagen
-     * 
-     * @param imaImagen es la <code>imagen</code> del jugador.
-     * 
-     */
-    public void setImagen(Image imaImagen) {
-        aniAnimacion.quitaCuadros();
-        aniAnimacion.sumaCuadro(imaImagen,100);
-    }
-
-    
-    /**
-     * getAncho
-     * 
-     * Metodo de acceso que regresa el ancho del icono 
-     * 
-     * @return un <code>entero</code> que es el ancho de la imagen.
-     * 
-     */
-    public int getAncho() {
-        return iAncho;
-    }
-
-    /**
-     * getAlto
-     * 
-     * Metodo que  da el alto del icono 
-     * 
-     * @return un <code>entero</code> que es el alto de la imagen.
-     * 
-     */
-    public int getAlto() {
-        return iAlto;
-    }
-    
-    /**
-     * paint
-     * 
-     * Metodo para pintar el jugador
-     * 
-     * @param graGrafico   objeto de la clase <code>Graphics</code> para graficar
-     * @param imoObserver  objeto de la clase <code>ImageObserver</code> es el 
-     *    Applet donde se pintara
-     * 
-     */
-    public void paint(Graphics graGrafico, ImageObserver imoObserver) {
-        graGrafico.drawImage(aniAnimacion.getImagen(), this.getX(), this.getY(),imoObserver);
-    }
-    
-     /**
-     * actualiza
-     * 
-     * Metodo que actualiza los frames
-     * 
-     * @param lTiempoTranscurrido es el tiempo transcurrido desde que inicio la ejecucion
-     * 
-     */
-    public void actualiza(long lTiempoTranscurrido) {
-      aniAnimacion.actualiza(lTiempoTranscurrido);
-    }
-    
     
     /**
      * intersecta

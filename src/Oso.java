@@ -27,12 +27,11 @@ public class Oso extends Monstruo {
      * @param bVisible es la <code>visibilidad</code> de el oso.
      */
     public Oso(int iX, int iY,int iAncho, int iAlto, Image imaImagen) {
-        
+        super(imaImagen);
         this.iX=iX;
         this.iY=iY;
         this.iAncho=iAncho;
         this.iAlto=iAlto;
-        this.imaImagen=imaImagen;
         this.iDaño=2;
 
     }

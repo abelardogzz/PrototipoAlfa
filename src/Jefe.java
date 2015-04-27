@@ -28,12 +28,11 @@ public class Jefe extends Monstruo {
      */
     public Jefe(int iX, int iY,int iAncho, int iAlto, Image imaImagen,
             int iDano) {
-        
+        super(imaImagen);
         this.iX=iX;
         this.iY=iY;
         this.iAncho=iAncho;
         this.iAlto=iAlto;
-        this.imaImagen=imaImagen;
         this.iDaño=iDano;
 
     }

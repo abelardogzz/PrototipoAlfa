@@ -27,12 +27,11 @@ public class Alacran extends Monstruo {
      * @param bVisible es la <code>visibilidad</code> de la alacran.
      */
     public Alacran(int iX, int iY,int iAncho, int iAlto, Image imaImagen) {
-        
+        super(imaImagen);
         this.iX=iX;
         this.iY=iY;
         this.iAncho=iAncho;
         this.iAlto=iAlto;
-        this.imaImagen=imaImagen;
         this.iDaño=4;
 
     }

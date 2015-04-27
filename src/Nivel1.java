@@ -3,6 +3,8 @@ import java.awt.Graphics;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -85,6 +87,7 @@ public class Nivel1 extends JFrame implements ActionListener, KeyListener, Runna
         setSize(800,600);
         setResizable(false);
         setLayout(new FlowLayout());
+        this.getGraphicsConfiguration();
         
         //Defino variables de juego
         iVidas= 4; 
@@ -94,7 +97,7 @@ public class Nivel1 extends JFrame implements ActionListener, KeyListener, Runna
         bPausa= false;
         bCont = false;
         bP2 = false;
-        //URL goURL = this.getClass().getResource("gameOver2.png");
+        //URL goURL = this.getClass().getResource("gameOver2.pn acg");
         //imagameover = Toolkit.getDefaultToolkit().getImage(goURL);
         
         nombreArchivo = "DatosJuego.txt";
@@ -158,7 +161,10 @@ public class Nivel1 extends JFrame implements ActionListener, KeyListener, Runna
         });
 
         addKeyListener(this);
-  
+        
+        
+        ResourceManager rma = new ResourceManager(this.getGraphicsConfiguration());
+        rma.loadNextMap();
     }
 
     
