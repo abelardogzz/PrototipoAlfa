@@ -25,6 +25,7 @@ public class Sprite extends Object {
     /**
         Updates this Sprite's Animation and its position based
         on the velocitiY.
+        * 
     */
     public void actualiza(long elapsedTime) {
         iX += idX * elapsedTime;
