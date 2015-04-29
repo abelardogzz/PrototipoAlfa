@@ -59,6 +59,7 @@ public class Nivel1_Jefe extends JFrame implements Runnable,ActionListener,KeyLi
     private boolean bPausa;
     private boolean bCont;
     private boolean bP2;
+    private boolean bMov;
     long lbeforeTime; //long que me dira el tiempo del sistema
     private LinkedList <Alacran>lklAlacran; //Lista Encadenada de fantasmas
     private LinkedList <Lobo>lklLobo; //Lista Encadenada de fantasmas 
@@ -99,6 +100,7 @@ public class Nivel1_Jefe extends JFrame implements Runnable,ActionListener,KeyLi
         bPausa= false;
         bCont = false;
         bP2 = false;
+        bMov = false;
         //URL goURL = this.getClass().getResource("gameOver2.png");
         //imagameover = Toolkit.getDefaultToolkit().getImage(goURL);
         
@@ -114,6 +116,7 @@ public class Nivel1_Jefe extends JFrame implements Runnable,ActionListener,KeyLi
         
         // defino la imagen de Juan
 	URL urlImagenJuanLado = this.getClass().getResource("recursos/juanito.gif");
+        URL urlImagenJuanStatic = this.getClass().getResource("recursos/juanito_static.gif");
         URL urlImagenJuanArriba = this.getClass().getResource("recursos/Juan_arriba.png");
         URL urlImagenAlacranLado = this.getClass().getResource("recursos/alacran_lado.gif");
         URL urlImagenLobo = this.getClass().getResource("recursos/lobo_derecha.gif");

@@ -52,6 +52,7 @@ public class Nivel1 extends JFrame implements ActionListener, KeyListener, Runna
     private boolean bPausa;
     private boolean bCont;
     private boolean bP2;
+    private boolean bMov;
     long lbeforeTime; //long que me dira el tiempo del sistema
     private LinkedList <Powerup>lklVidas; //Lista Encadena de Vidas del Jugador
     /* objetos para manejar el buffer del Applet y este no parpadee */
@@ -97,6 +98,7 @@ public class Nivel1 extends JFrame implements ActionListener, KeyListener, Runna
         bPausa= false;
         bCont = false;
         bP2 = false;
+        bMov = false;
         //URL goURL = this.getClass().getResource("gameOver2.pn acg");
         //imagameover = Toolkit.getDefaultToolkit().getImage(goURL);
         
@@ -106,6 +108,7 @@ public class Nivel1 extends JFrame implements ActionListener, KeyListener, Runna
         
         // defino las imagenes que usare
 	URL urlImagenJuanLado = this.getClass().getResource("recursos/juanito.gif");
+        URL urlImagenJuanStatic = this.getClass().getResource("recursos/juanito_static.gif");
         URL urlImagenJuanArriba = this.getClass().getResource("recursos/Juan_arriba.png");
         URL urlImagenAlacranLado = this.getClass().getResource("recursos/alacran_lado.gif");
         URL urlImagenAlacranArriba = this.getClass().getResource("recursos/alacran_arriba.gif");

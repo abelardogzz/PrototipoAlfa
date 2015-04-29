@@ -59,7 +59,8 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
     private boolean bFin; //Variable control final del juego
     private boolean bPausa; //Variable para controlar la pausa
     private boolean bCont; //Variable para contador
-    private boolean bP2; 
+    private boolean bP2;
+    private boolean bMov;
     long lbeforeTime; //long que me dira el tiempo del sistema
     private LinkedList <Serpiente>lklSerpiente; //Lista Encadenada de Serpientes
     private LinkedList <Lobo>lklLobo; //Lista Encadenada de Lobos 
@@ -91,6 +92,7 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
         bPausa= false;
         bCont = false;
         bP2 = false;
+        bMov = false;
         //URL goURL = this.getClass().getResource("gameOver2.png");
         //imagameover = Toolkit.getDefaultToolkit().getImage(goURL);
         
@@ -106,6 +108,7 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
         
         // Definicion de URLs para conseguir las rutas de las imagenes
 	URL urlImagenJuanLado = this.getClass().getResource("recursos/juanito.gif");
+        URL urlImagenJuanStatic = this.getClass().getResource("recursos/juanito_static.gif");
         URL urlImagenJuanArriba = this.getClass().getResource("recursos/Juan_arriba.png");
         URL urlImagenAlacranLado = this.getClass().getResource("recursos/alacran_lado.gif");
         URL urlImagenLobo = this.getClass().getResource("recursos/lobo_derecha.gif");

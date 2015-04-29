@@ -47,6 +47,7 @@ public class Nivel3_1 extends JFrame implements ActionListener, KeyListener, Run
     private boolean bPausa;
     private boolean bCont;
     private boolean bP2;
+    private boolean bMov;
     long lbeforeTime; //long que me dira el tiempo del sistema
     private LinkedList <Powerup>lklVidas; //Lista Encadena de Vidas del Jugador
     private LinkedList <Cholo>lklCholos;//Lista Encadena de Cholos
@@ -100,6 +101,7 @@ public class Nivel3_1 extends JFrame implements ActionListener, KeyListener, Run
         bPausa= false;
         bCont = false;
         bP2 = false;
+        bMov = false;
         //URL goURL = this.getClass().getResource("gameOver2.png");
         //imagameover = Toolkit.getDefaultToolkit().getImage(goURL);
         
@@ -110,6 +112,7 @@ public class Nivel3_1 extends JFrame implements ActionListener, KeyListener, Run
         
         // defino las imagenes que usare
 	URL urlImagenJuanLado = this.getClass().getResource("recursos/juanito.gif");
+        URL urlImagenJuanStatic = this.getClass().getResource("recursos/juanito_static.gif");
         URL urlImagenJuanArriba = this.getClass().getResource("recursos/Juan_arriba.png");
         URL urlImagenCholo = this.getClass().getResource("recursos/cholo.gif");
         URL urlImagenVida = this.getClass().getResource("recursos/heart.png");
