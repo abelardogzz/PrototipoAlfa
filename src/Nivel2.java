@@ -61,6 +61,7 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
     private boolean bCont; //Variable para contador
     private boolean bP2;
     private boolean bMov;
+    private boolean bDireccion;
     long lbeforeTime; //long que me dira el tiempo del sistema
     private LinkedList <Serpiente>lklSerpiente; //Lista Encadenada de Serpientes
     private LinkedList <Lobo>lklLobo; //Lista Encadenada de Lobos 
@@ -221,7 +222,19 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
     
     //Metodo que actualizara los personajes
     public void actualiza(){
-        
+    //Dependiendo de la direccion del elefante es hacia donde se mueve.
+        if (bMov){
+            switch(iDireccion) {
+                    case 1: {
+                        jugJuan.setX(jugJuan.getX() - 1);
+                        break;    //se mueve hacia la izquierda
+                    }
+                    case 2: {
+                        jugJuan.setX(jugJuan.getX() + 1); 
+                        break;    //se mueve hacia la derecha
+                    }
+            }
+        }
     }
     
     //Metodo que checara las colisiones de los personakes
@@ -324,16 +337,30 @@ public class Nivel2 extends JFrame implements Runnable,ActionListener,KeyListene
 
     
     public void keyPressed(KeyEvent ke) {
-        
+        if(ke.getKeyCode() == KeyEvent.VK_RIGHT) {
+            bMov = true;
+            iDireccion = 2;
+        }
+        if(ke.getKeyCode() == KeyEvent.VK_LEFT) {
+            bMov = true;
+            iDireccion = 1;
+        }
     }
 
-    //Metodo que escucha y recibe cual tecla fue dejada de presionar
+    //Aqui se cambia de pantalla
     public void keyReleased(KeyEvent ke) {
+        if(ke.getKeyCode() == KeyEvent.VK_RIGHT) {
+            bMov = false;
+        }
+        if(ke.getKeyCode() == KeyEvent.VK_LEFT) {
+            bMov = false;
+        }
+        /*
         if(ke.getKeyCode() == KeyEvent.VK_RIGHT){ //Si se suelta flecha derecha
             Nivel2_1 nvlNivel = new Nivel2_1();//Crea nuevo JFrame de Nivel2_1
             nvlNivel.setVisible(true);          //Lo muestra  
             this.dispose();                     //Se deshace del actual
-        }
+        }*/
     }
     
 }

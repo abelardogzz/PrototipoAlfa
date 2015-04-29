@@ -40,6 +40,7 @@ public class Nivel3_Jefe extends JFrame implements ActionListener, KeyListener, 
     private int iCantMunicion;  //cantidad de municiones
     private int iCantMoneda;    //cantidad de monedas
     private int iVidas; // Vidas del juego
+    private int iDireccion;
     private boolean bFin;
     private boolean bPausa;
     private boolean bCont;
@@ -101,6 +102,7 @@ public class Nivel3_Jefe extends JFrame implements ActionListener, KeyListener, 
         iVidas= 4; 
         iCantMunicion = 6;
         iCantMoneda = 0;
+        iDireccion = 0;
         bFin= false;
         bPausa= false;
         bCont = false;
@@ -194,7 +196,19 @@ public class Nivel3_Jefe extends JFrame implements ActionListener, KeyListener, 
     }
     
     public void actualiza(){
-        
+    //Dependiendo de la direccion del elefante es hacia donde se mueve.
+        if (bMov){
+            switch(iDireccion) {
+                    case 1: {
+                        jugJuan.setX(jugJuan.getX() - 1);
+                        break;    //se mueve hacia la izquierda
+                    }
+                    case 2: {
+                        jugJuan.setX(jugJuan.getX() + 1); 
+                        break;    //se mueve hacia la derecha
+                    }
+            }
+        }
     }
     
     public void checaColision(){
@@ -285,24 +299,28 @@ public class Nivel3_Jefe extends JFrame implements ActionListener, KeyListener, 
 
     
     public void keyPressed(KeyEvent ke) {
-        
+        if(ke.getKeyCode() == KeyEvent.VK_RIGHT) {
+            bMov = true;
+            iDireccion = 2;
+        }
+        if(ke.getKeyCode() == KeyEvent.VK_LEFT) {
+            bMov = true;
+            iDireccion = 1;
+        }
     }
 
-    /**
-     * keyReleased
-     * 
-     * Metodo usado para salir del juego una vez terminado.
-     * 
-     * 
-     */
-    
+    //Aqui se cambia de pantalla
     public void keyReleased(KeyEvent ke) {
+        if(ke.getKeyCode() == KeyEvent.VK_RIGHT) {
+            bMov = false;
+        }
+        if(ke.getKeyCode() == KeyEvent.VK_LEFT) {
+            bMov = false;
+        }
+        /*
         if(ke.getKeyCode() == KeyEvent.VK_RIGHT){
             
             System.exit(0);
-        }
+        }*/
     }
-    
-
-    
 }

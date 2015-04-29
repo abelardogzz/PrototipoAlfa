@@ -207,7 +207,19 @@ public class Nivel1_Jefe extends JFrame implements Runnable,ActionListener,KeyLi
     }
     
     public void actualiza(){
-        
+    //Dependiendo de la direccion del elefante es hacia donde se mueve.
+        if (bMov){
+            switch(iDireccion) {
+                    case 1: {
+                        jugJuan.setX(jugJuan.getX() - 1);
+                        break;    //se mueve hacia la izquierda
+                    }
+                    case 2: {
+                        jugJuan.setX(jugJuan.getX() + 1); 
+                        break;    //se mueve hacia la derecha
+                    }
+            }
+        }
     }
     
     public void checaColision(){
@@ -303,15 +315,29 @@ public class Nivel1_Jefe extends JFrame implements Runnable,ActionListener,KeyLi
 
     
     public void keyPressed(KeyEvent ke) {
-        
+        if(ke.getKeyCode() == KeyEvent.VK_RIGHT) {
+            bMov = true;
+            iDireccion = 2;
+        }
+        if(ke.getKeyCode() == KeyEvent.VK_LEFT) {
+            bMov = true;
+            iDireccion = 1;
+        }
     }
 
-    
+    //Aqui se cambia de pantalla
     public void keyReleased(KeyEvent ke) {
+        if(ke.getKeyCode() == KeyEvent.VK_RIGHT) {
+            bMov = false;
+        }
+        if(ke.getKeyCode() == KeyEvent.VK_LEFT) {
+            bMov = false;
+        }
+        /*
         if(ke.getKeyCode() == KeyEvent.VK_RIGHT){
             Nivel2 nvlNivel = new Nivel2();
             nvlNivel.setVisible(true);
             this.dispose();
-        }
+        }*/
     }
 }

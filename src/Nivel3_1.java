@@ -42,6 +42,7 @@ public class Nivel3_1 extends JFrame implements ActionListener, KeyListener, Run
     private int iCantMunicion;  //cantidad de municiones
     private int iCantMoneda;    //cantidad de monedas
     private int iVidas; // Vidas del juego
+    private int iDireccion;
     private Powerup pw; //objeto Powerup
     private boolean bFin;
     private boolean bPausa;
@@ -97,6 +98,7 @@ public class Nivel3_1 extends JFrame implements ActionListener, KeyListener, Run
         iVidas= 4; 
         iCantMunicion = 6;
         iCantMoneda = 0;
+        iDireccion = 0;
         bFin= false;
         bPausa= false;
         bCont = false;
@@ -202,7 +204,19 @@ public class Nivel3_1 extends JFrame implements ActionListener, KeyListener, Run
     }
     
     public void actualiza(){
-        
+    //Dependiendo de la direccion del elefante es hacia donde se mueve.
+        if (bMov){
+            switch(iDireccion) {
+                    case 1: {
+                        jugJuan.setX(jugJuan.getX() - 1);
+                        break;    //se mueve hacia la izquierda
+                    }
+                    case 2: {
+                        jugJuan.setX(jugJuan.getX() + 1); 
+                        break;    //se mueve hacia la derecha
+                    }
+            }
+        }
     }
     
     public void checaColision(){
@@ -298,22 +312,29 @@ public class Nivel3_1 extends JFrame implements ActionListener, KeyListener, Run
 
     
     public void keyPressed(KeyEvent ke) {
-        
+        if(ke.getKeyCode() == KeyEvent.VK_RIGHT) {
+            bMov = true;
+            iDireccion = 2;
+        }
+        if(ke.getKeyCode() == KeyEvent.VK_LEFT) {
+            bMov = true;
+            iDireccion = 1;
+        }
     }
 
-    /**
-     * keyReleased
-     * 
-     * Metodo usado para cambiar de nivel si se oprime la tecla indicada.
-     * 
-     * 
-     */
-    
+    //Aqui se cambia de pantalla
     public void keyReleased(KeyEvent ke) {
+        if(ke.getKeyCode() == KeyEvent.VK_RIGHT) {
+            bMov = false;
+        }
+        if(ke.getKeyCode() == KeyEvent.VK_LEFT) {
+            bMov = false;
+        }
+        /*
         if(ke.getKeyCode() == KeyEvent.VK_RIGHT){
             Nivel3_Jefe nvlNivel = new Nivel3_Jefe();
             nvlNivel.setVisible(true);
             this.dispose();
-        }
+        }*/
     }
 }

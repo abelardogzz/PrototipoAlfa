@@ -57,6 +57,7 @@ public class Nivel2_Jefe extends JFrame implements Runnable,ActionListener,KeyLi
     private boolean bCont;
     private boolean bP2;
     private boolean bMov;
+    private boolean bDireccion;
     long lbeforeTime; //long que me dira el tiempo del sistema
     private LinkedList <Alacran>lklAlacran; //Lista Encadenada de fantasmas
     private LinkedList <Lobo>lklLobo; //Lista Encadenada de fantasmas 
@@ -195,7 +196,19 @@ public class Nivel2_Jefe extends JFrame implements Runnable,ActionListener,KeyLi
     }
     
     public void actualiza(){
-        
+    //Dependiendo de la direccion del elefante es hacia donde se mueve.
+        if (bMov){
+            switch(iDireccion) {
+                    case 1: {
+                        jugJuan.setX(jugJuan.getX() - 1);
+                        break;    //se mueve hacia la izquierda
+                    }
+                    case 2: {
+                        jugJuan.setX(jugJuan.getX() + 1); 
+                        break;    //se mueve hacia la derecha
+                    }
+            }
+        }
     }
     
     public void checaColision(){
@@ -291,16 +304,30 @@ public class Nivel2_Jefe extends JFrame implements Runnable,ActionListener,KeyLi
 
     
     public void keyPressed(KeyEvent ke) {
-        
+        if(ke.getKeyCode() == KeyEvent.VK_RIGHT) {
+            bMov = true;
+            iDireccion = 2;
+        }
+        if(ke.getKeyCode() == KeyEvent.VK_LEFT) {
+            bMov = true;
+            iDireccion = 1;
+        }
     }
 
-    //Metodo que escucha y recibe cual tecla fue dejada de presionar
+    //Aqui se cambia de pantalla
     public void keyReleased(KeyEvent ke) {
+        if(ke.getKeyCode() == KeyEvent.VK_RIGHT) {
+            bMov = false;
+        }
+        if(ke.getKeyCode() == KeyEvent.VK_LEFT) {
+            bMov = false;
+        }
+        /*
         if(ke.getKeyCode() == KeyEvent.VK_RIGHT){//SI se oprime flecha derecha
             Nivel3 nvlNivel = new Nivel3(); //Cambia al Nivel3
             nvlNivel.setVisible(true);
             this.dispose();
-        }
+        }*/
     }
    
 }
