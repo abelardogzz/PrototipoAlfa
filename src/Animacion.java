@@ -5,6 +5,7 @@ import java.util.ArrayList;
 /**
 	La clase Animacion maneja una serie de imágenes (cuadros)
 	y la cantidad de tiempo que se muestra cada cuadro.
+        * 
 */
 
 public class Animacion{

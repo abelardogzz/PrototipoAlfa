@@ -332,6 +332,7 @@ public class Nivel1 extends JFrame implements ActionListener, KeyListener, Runna
         }
         if(ke.getKeyCode() == KeyEvent.VK_LEFT) {
             bMov = false;
+            //se mueve
         }
         
         /*if(ke.getKeyCode() == KeyEvent.VK_RIGHT){
